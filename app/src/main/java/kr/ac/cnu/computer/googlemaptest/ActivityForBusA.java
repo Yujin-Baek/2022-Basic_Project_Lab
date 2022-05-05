@@ -47,13 +47,24 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback
 {
+
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference busLocation = mDatabase.child("location");
+
     private GoogleMap map;
 
     private static final String TAG = "googlemap_example";
@@ -76,9 +87,12 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationRequest locationRequest;
     private Location location;
-    private boolean isSetCurrentLocation = false;
+    private boolean doesSetCurrentLocation = false;
 
     private View mLayout; // Snackbar 사용하기 위해서는 View가 필요합니다.
+
+    private LatLng currentBusLocation;
+    private Marker currentBusMarker = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -247,6 +261,10 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
         //충남대학교로 지도 이동
         setDefaultLocation();
 
+
+
+
+
         // 런타임 퍼미션 처리
         // 1. 위치 퍼미션을 가지고 있는지 체크합니다.
         int hasFineLocationPermission = ContextCompat.checkSelfPermission(this,
@@ -287,7 +305,10 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
             }
         });
 
+
+
     }
+
 
     LocationCallback locationCallback = new LocationCallback() {
         public void onLocationResult(LocationResult locationResult) {
@@ -299,13 +320,13 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                 location = locationList.get(locationList.size() - 1);
 
                 currentPosition = new LatLng(location.getLatitude(), location.getLatitude());
-                if (!isSetCurrentLocation) {
+                if (!doesSetCurrentLocation) {
                     // 앱을 새로 시작할 때 (혹은 껐다가 다시 켤 때)만 현재 위치를 자동으로 보여주게 했습니다.
                     // 이렇게 하지 않으면 내 위치가 움직일 때마다 내 위치가 지도 중심으로 옮겨집니다.
                     // 그렇게 되면 버스 정류장 정보를 보기가 힘들어져서 이렇게 했습니다.
                     // 어차피 현재 위치로 이동하는 버튼은 따로 있으니까요.
                     setCurrentLocation(location);
-                    isSetCurrentLocation = true;
+                    doesSetCurrentLocation = true;
                 }
                 mCurrentLocation = location;
             }
@@ -342,13 +363,14 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
 
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
 
         Log.d(TAG, "onStart");
 
-        isSetCurrentLocation = false;
+        doesSetCurrentLocation = false;
         if (checkPermission()) {
 
             Log.d(TAG, "onStart : call mFusedLocationClient.requestLocationUpdates");
@@ -359,6 +381,28 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
 
         }
 
+        busLocation.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (currentBusMarker != null) currentBusMarker.remove();
+
+                final double latitude = (double) dataSnapshot.child("latitude").getValue();
+                final double longitude = (double) dataSnapshot.child("longitude").getValue();
+
+                currentBusLocation = new LatLng(latitude, longitude);
+                MarkerOptions busMarkerOptions = new MarkerOptions();
+                busMarkerOptions.position(currentBusLocation)
+                        .title("버스")
+                        .snippet("현재 위치");
+                currentBusMarker = map.addMarker(busMarkerOptions);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
