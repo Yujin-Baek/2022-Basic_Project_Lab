@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "564671586626",
+    "project_id": "maptest-7d7d0",
+    "storage_bucket": "maptest-7d7d0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564671586626:android:fd857d5eeccbf3b4e268db",
+        "android_client_info": {
+          "package_name": "kr.ac.cnu.computer.googlemaptest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "564671586626-ph7kjmiqhi30kit2v4e8f1lnjas44ff6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAXMljOoj0QaHTKa0Mv7njbYNsRoT5wWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "564671586626-ph7kjmiqhi30kit2v4e8f1lnjas44ff6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
