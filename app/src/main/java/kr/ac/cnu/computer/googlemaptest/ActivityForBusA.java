@@ -16,8 +16,14 @@ package kr.ac.cnu.computer.googlemaptest;
  *
  */
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
+import android.os.SystemClock;
 import android.widget.Button;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -46,12 +52,18 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -59,6 +71,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback
 {
 
@@ -138,6 +151,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                 finish();
             }
         });
+
     }
 
     @Override
@@ -167,81 +181,125 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
 
         MarkerOptions stationOne = new MarkerOptions();
         stationOne.position(numberOne)
-                .title("①정심화국제문화회관")
-                .snippet("null");
+                .title("①정심화국제문화회관");
 
         MarkerOptions stationTwo = new MarkerOptions();
         stationTwo.position(numberTwo)
-                .title("②경상대학 앞")
-                .snippet("null");
+                .title("②경상대학 앞");
 
         MarkerOptions stationThree = new MarkerOptions();
         stationThree.position(numberThree)
-                .title("③도서관 앞(농대방향)")
-                .snippet("null");
+                .title("③도서관 앞(농대방향)");
 
         MarkerOptions stationFour = new MarkerOptions();
         stationFour.position(numberFour)
-                .title("④학생생활관3거리")
-                .snippet("null");
+                .title("④학생생활관3거리");
 
         MarkerOptions stationFive = new MarkerOptions();
         stationFive.position(numberFive)
-                .title("⑤농업생명과학대학 앞")
-                .snippet("null");
+                .title("⑤농업생명과학대학 앞");
 
         MarkerOptions stationSix = new MarkerOptions();
         stationSix.position(numberSix)
-                .title("⑥동문주차장")
-                .snippet("null");
+                .title("⑥동문주차장");
 
         MarkerOptions stationSeven = new MarkerOptions();
         stationSeven.position(numberSeven)
-                .title("⑦농업생명과학대학 앞")
-                .snippet("null");
+                .title("⑦농업생명과학대학 앞");
 
         MarkerOptions stationEight = new MarkerOptions();
         stationEight.position(numberEight)
-                .title("⑧도서관 앞(도서관 삼거리 방향")
-                .snippet("null");
+                .title("⑧도서관 앞(도서관 삼거리 방향");
 
         MarkerOptions stationNine = new MarkerOptions();
         stationNine.position(numberNine)
-                .title("⑨예술대학 앞")
-                .snippet("null");
+                .title("⑨예술대학 앞");
 
         MarkerOptions stationTen = new MarkerOptions();
         stationTen.position(numberTen)
-                .title("⑩음악2호관 앞")
-                .snippet("null");
+                .title("⑩음악2호관 앞");
 
         MarkerOptions stationEleven = new MarkerOptions();
         stationEleven.position(numberEleven)
-                .title("⑪공동동물실험센터 입구(회차)")
-                .snippet("null");
+                .title("⑪공동동물실험센터 입구(회차)");
 
         MarkerOptions stationTwelve = new MarkerOptions();
         stationTwelve.position(numberTwelve)
-                .title("⑫체육관 입구")
-                .snippet("null");
+                .title("⑫체육관 입구");
 
         MarkerOptions stationThirteen = new MarkerOptions();
         stationThirteen.position(numberThirteen)
-                .title("⑬서문(공동실험실습관앞)")
-                .snippet("null");
+                .title("⑬서문(공동실험실습관앞)");
 
         MarkerOptions stationFourteen = new MarkerOptions();
         stationFourteen.position(numberFourteen)
-                .title("⑭사회과학대학 입구(한누리회관 뒤)")
-                .snippet("null");
+                .title("⑭사회과학대학 입구(한누리회관 뒤)");
 
         MarkerOptions stationFifteen = new MarkerOptions();
         stationFifteen.position(numberFifteen)
-                .title("⑮산학연교육연구관 앞")
-                .snippet("null");
+                .title("⑮산학연교육연구관 앞");
+
+        BitmapDrawable bitmapDrawStationOne = (BitmapDrawable) getResources().getDrawable(R.drawable.first_station);
+        Bitmap b1 = bitmapDrawStationOne.getBitmap();
+        stationOne.icon(BitmapDescriptorFactory.fromBitmap(b1));
+
+        BitmapDrawable bitmapDrawStationTwo = (BitmapDrawable) getResources().getDrawable(R.drawable.second_station);
+        Bitmap b2 = bitmapDrawStationTwo.getBitmap();
+        stationTwo.icon(BitmapDescriptorFactory.fromBitmap(b2));
+
+        BitmapDrawable bitmapDrawStationThree = (BitmapDrawable) getResources().getDrawable(R.drawable.third_station);
+        Bitmap b3 = bitmapDrawStationThree.getBitmap();
+        stationThree.icon(BitmapDescriptorFactory.fromBitmap(b3));
+
+        BitmapDrawable bitmapDrawStationFour = (BitmapDrawable) getResources().getDrawable(R.drawable.fourth_station);
+        Bitmap b4 = bitmapDrawStationFour.getBitmap();
+        stationFour.icon(BitmapDescriptorFactory.fromBitmap(b4));
+
+        BitmapDrawable bitmapDrawStationFive = (BitmapDrawable) getResources().getDrawable(R.drawable.fifth_station);
+        Bitmap b5 = bitmapDrawStationFive.getBitmap();
+        stationFive.icon(BitmapDescriptorFactory.fromBitmap(b5));
+
+        BitmapDrawable bitmapDrawStationSix = (BitmapDrawable) getResources().getDrawable(R.drawable.sixth_station);
+        Bitmap b6 = bitmapDrawStationSix.getBitmap();
+        stationSix.icon(BitmapDescriptorFactory.fromBitmap(b6));
+
+        BitmapDrawable bitmapDrawStationSeven = (BitmapDrawable) getResources().getDrawable(R.drawable.seventh_station);
+        Bitmap b7 = bitmapDrawStationSeven.getBitmap();
+        stationSeven.icon(BitmapDescriptorFactory.fromBitmap(b7));
+
+        BitmapDrawable bitmapDrawStationEight = (BitmapDrawable) getResources().getDrawable(R.drawable.eighth_station);
+        Bitmap b8 = bitmapDrawStationEight.getBitmap();
+        stationEight.icon(BitmapDescriptorFactory.fromBitmap(b8));
+
+        BitmapDrawable bitmapDrawStationNine = (BitmapDrawable) getResources().getDrawable(R.drawable.ninth_station);
+        Bitmap b9 = bitmapDrawStationNine.getBitmap();
+        stationNine.icon(BitmapDescriptorFactory.fromBitmap(b9));
+
+        BitmapDrawable bitmapDrawStationTen = (BitmapDrawable) getResources().getDrawable(R.drawable.tenth_station);
+        Bitmap b10 = bitmapDrawStationTen.getBitmap();
+        stationTen.icon(BitmapDescriptorFactory.fromBitmap(b10));
+
+        BitmapDrawable bitmapDrawStationEleven = (BitmapDrawable) getResources().getDrawable(R.drawable.eleventh_station);
+        Bitmap b11 = bitmapDrawStationEleven.getBitmap();
+        stationEleven.icon(BitmapDescriptorFactory.fromBitmap(b11));
+
+        BitmapDrawable bitmapDrawStationTwelve = (BitmapDrawable) getResources().getDrawable(R.drawable.twelfth_station);
+        Bitmap b12 = bitmapDrawStationTwelve.getBitmap();
+        stationTwelve.icon(BitmapDescriptorFactory.fromBitmap(b12));
+
+        BitmapDrawable bitmapDrawStationThirteen = (BitmapDrawable) getResources().getDrawable(R.drawable.thirteenth_station);
+        Bitmap b13 = bitmapDrawStationThirteen.getBitmap();
+        stationThirteen.icon(BitmapDescriptorFactory.fromBitmap(b13));
+
+        BitmapDrawable bitmapDrawStationFourteen = (BitmapDrawable) getResources().getDrawable(R.drawable.fourteenth_station);
+        Bitmap b14 = bitmapDrawStationFourteen.getBitmap();
+        stationFourteen.icon(BitmapDescriptorFactory.fromBitmap(b14));
+
+        BitmapDrawable bitmapDrawStationFifteen = (BitmapDrawable) getResources().getDrawable(R.drawable.fifteenth_station);
+        Bitmap b15 = bitmapDrawStationFifteen.getBitmap();
+        stationFifteen.icon(BitmapDescriptorFactory.fromBitmap(b15));
 
 
-        // 지도에 마커 추가(이 마커 디자인은 변경할 수 있습니다.)
         map.addMarker(stationOne);
         map.addMarker(stationTwo);
         map.addMarker(stationThree);
@@ -260,9 +318,6 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
 
         //충남대학교로 지도 이동
         setDefaultLocation();
-
-
-
 
 
         // 런타임 퍼미션 처리
@@ -391,9 +446,12 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
 
                 currentBusLocation = new LatLng(latitude, longitude);
                 MarkerOptions busMarkerOptions = new MarkerOptions();
-                busMarkerOptions.position(currentBusLocation)
-                        .title("버스")
-                        .snippet("현재 위치");
+                busMarkerOptions.position(currentBusLocation);
+
+                BitmapDrawable bitmapDrawBus = (BitmapDrawable) getResources().getDrawable(R.drawable.bus_icon);
+                Bitmap b = bitmapDrawBus.getBitmap();
+                busMarkerOptions.icon(BitmapDescriptorFactory.fromBitmap(b));
+
                 currentBusMarker = map.addMarker(busMarkerOptions);
 
             }
@@ -409,7 +467,6 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
 
     @Override
     protected void onStop() {
-
         super.onStop();
 
         if (mFusedLocationClient != null) {
@@ -417,7 +474,9 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
             Log.d(TAG, "onStop : call stopLocationUpdates");
             mFusedLocationClient.removeLocationUpdates(locationCallback);
         }
+
     }
+
 
 
     public boolean checkLocationServicesStatus() {

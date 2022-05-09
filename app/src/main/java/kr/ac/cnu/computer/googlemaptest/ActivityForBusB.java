@@ -1,5 +1,7 @@
 package kr.ac.cnu.computer.googlemaptest;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -30,6 +32,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
@@ -131,78 +134,123 @@ public class ActivityForBusB extends AppCompatActivity implements OnMapReadyCall
 
         MarkerOptions stationOne = new MarkerOptions();
         stationOne.position(numberOne)
-                .title("①정심화국제문화회관")
-                .snippet("null");
+                .title("①정심화국제문화회관");
 
         MarkerOptions stationTwo = new MarkerOptions();
         stationTwo.position(numberTwo)
-                .title("②사회과학대학입구(한누리회관뒤)")
-                .snippet("null");
+                .title("②사회과학대학입구(한누리회관뒤)");
 
         MarkerOptions stationThree = new MarkerOptions();
         stationThree.position(numberThree)
-                .title("③서문(공동실험실습관앞)")
-                .snippet("null");
+                .title("③서문(공동실험실습관앞)");
 
         MarkerOptions stationFour = new MarkerOptions();
         stationFour.position(numberFour)
-                .title("④음악2호관앞")
-                .snippet("null");
+                .title("④음악2호관앞");
 
         MarkerOptions stationFive = new MarkerOptions();
         stationFive.position(numberFive)
-                .title("⑤공동동물실험센터입구(회차)")
-                .snippet("null");
+                .title("⑤공동동물실험센터입구(회차)");
 
         MarkerOptions stationSix = new MarkerOptions();
         stationSix.position(numberSix)
-                .title("⑥체육관입구")
-                .snippet("null");
+                .title("⑥체육관입구");
 
         MarkerOptions stationSeven = new MarkerOptions();
         stationSeven.position(numberSeven)
-                .title("⑦예술대학앞")
-                .snippet("null");
+                .title("⑦예술대학앞");
 
         MarkerOptions stationEight = new MarkerOptions();
         stationEight.position(numberEight)
-                .title("⑧도서관앞(대학본부옆농대방향)")
-                .snippet("null");
+                .title("⑧도서관앞(대학본부옆농대방향)");
 
         MarkerOptions stationNine = new MarkerOptions();
         stationNine.position(numberNine)
-                .title("⑨농업생명과학대학 앞")
-                .snippet("null");
+                .title("⑨농업생명과학대학 앞");
 
         MarkerOptions stationTen = new MarkerOptions();
         stationTen.position(numberTen)
-                .title("⑩동문주차장")
-                .snippet("null");
+                .title("⑩동문주차장");
 
         MarkerOptions stationEleven = new MarkerOptions();
         stationEleven.position(numberEleven)
-                .title("⑪농업생명과학대학앞")
-                .snippet("null");
+                .title("⑪농업생명과학대학앞");
 
         MarkerOptions stationTwelve = new MarkerOptions();
         stationTwelve.position(numberTwelve)
-                .title("⑫학생생활관3거리")
-                .snippet("null");
+                .title("⑫학생생활관3거리");
 
         MarkerOptions stationThirteen = new MarkerOptions();
         stationThirteen.position(numberThirteen)
-                .title("⑬도서관앞(도서관삼거리 방향)")
-                .snippet("null");
+                .title("⑬도서관앞(도서관삼거리 방향)");
 
         MarkerOptions stationFourteen = new MarkerOptions();
         stationFourteen.position(numberFourteen)
-                .title("⑭공과대학앞")
-                .snippet("null");
+                .title("⑭공과대학앞");
 
         MarkerOptions stationFifteen = new MarkerOptions();
         stationFifteen.position(numberFifteen)
-                .title("⑮산학연교육연구관앞")
-                .snippet("null");
+                .title("⑮산학연교육연구관앞");
+
+        BitmapDrawable bitmapDrawStationOne = (BitmapDrawable) getResources().getDrawable(R.drawable.first_station);
+        Bitmap b1 = bitmapDrawStationOne.getBitmap();
+        stationOne.icon(BitmapDescriptorFactory.fromBitmap(b1));
+
+        BitmapDrawable bitmapDrawStationTwo = (BitmapDrawable) getResources().getDrawable(R.drawable.second_station);
+        Bitmap b2 = bitmapDrawStationTwo.getBitmap();
+        stationTwo.icon(BitmapDescriptorFactory.fromBitmap(b2));
+
+        BitmapDrawable bitmapDrawStationThree = (BitmapDrawable) getResources().getDrawable(R.drawable.third_station);
+        Bitmap b3 = bitmapDrawStationThree.getBitmap();
+        stationThree.icon(BitmapDescriptorFactory.fromBitmap(b3));
+
+        BitmapDrawable bitmapDrawStationFour = (BitmapDrawable) getResources().getDrawable(R.drawable.fourth_station);
+        Bitmap b4 = bitmapDrawStationFour.getBitmap();
+        stationFour.icon(BitmapDescriptorFactory.fromBitmap(b4));
+
+        BitmapDrawable bitmapDrawStationFive = (BitmapDrawable) getResources().getDrawable(R.drawable.fifth_station);
+        Bitmap b5 = bitmapDrawStationFive.getBitmap();
+        stationFive.icon(BitmapDescriptorFactory.fromBitmap(b5));
+
+        BitmapDrawable bitmapDrawStationSix = (BitmapDrawable) getResources().getDrawable(R.drawable.sixth_station);
+        Bitmap b6 = bitmapDrawStationSix.getBitmap();
+        stationSix.icon(BitmapDescriptorFactory.fromBitmap(b6));
+
+        BitmapDrawable bitmapDrawStationSeven = (BitmapDrawable) getResources().getDrawable(R.drawable.seventh_station);
+        Bitmap b7 = bitmapDrawStationSeven.getBitmap();
+        stationSeven.icon(BitmapDescriptorFactory.fromBitmap(b7));
+
+        BitmapDrawable bitmapDrawStationEight = (BitmapDrawable) getResources().getDrawable(R.drawable.eighth_station);
+        Bitmap b8 = bitmapDrawStationEight.getBitmap();
+        stationEight.icon(BitmapDescriptorFactory.fromBitmap(b8));
+
+        BitmapDrawable bitmapDrawStationNine = (BitmapDrawable) getResources().getDrawable(R.drawable.ninth_station);
+        Bitmap b9 = bitmapDrawStationNine.getBitmap();
+        stationNine.icon(BitmapDescriptorFactory.fromBitmap(b9));
+
+        BitmapDrawable bitmapDrawStationTen = (BitmapDrawable) getResources().getDrawable(R.drawable.tenth_station);
+        Bitmap b10 = bitmapDrawStationTen.getBitmap();
+        stationTen.icon(BitmapDescriptorFactory.fromBitmap(b10));
+
+        BitmapDrawable bitmapDrawStationEleven = (BitmapDrawable) getResources().getDrawable(R.drawable.eleventh_station);
+        Bitmap b11 = bitmapDrawStationEleven.getBitmap();
+        stationEleven.icon(BitmapDescriptorFactory.fromBitmap(b11));
+
+        BitmapDrawable bitmapDrawStationTwelve = (BitmapDrawable) getResources().getDrawable(R.drawable.twelfth_station);
+        Bitmap b12 = bitmapDrawStationTwelve.getBitmap();
+        stationTwelve.icon(BitmapDescriptorFactory.fromBitmap(b12));
+
+        BitmapDrawable bitmapDrawStationThirteen = (BitmapDrawable) getResources().getDrawable(R.drawable.thirteenth_station);
+        Bitmap b13 = bitmapDrawStationThirteen.getBitmap();
+        stationThirteen.icon(BitmapDescriptorFactory.fromBitmap(b13));
+
+        BitmapDrawable bitmapDrawStationFourteen = (BitmapDrawable) getResources().getDrawable(R.drawable.fourteenth_station);
+        Bitmap b14 = bitmapDrawStationFourteen.getBitmap();
+        stationFourteen.icon(BitmapDescriptorFactory.fromBitmap(b14));
+
+        BitmapDrawable bitmapDrawStationFifteen = (BitmapDrawable) getResources().getDrawable(R.drawable.fifteenth_station);
+        Bitmap b15 = bitmapDrawStationFifteen.getBitmap();
+        stationFifteen.icon(BitmapDescriptorFactory.fromBitmap(b15));
 
         map.addMarker(stationOne);
         map.addMarker(stationTwo);
