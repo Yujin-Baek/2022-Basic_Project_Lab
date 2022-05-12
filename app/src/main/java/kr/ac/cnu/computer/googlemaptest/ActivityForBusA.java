@@ -17,6 +17,7 @@ package kr.ac.cnu.computer.googlemaptest;
  */
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.SystemClock;
@@ -52,10 +53,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.*;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
@@ -178,6 +176,62 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
         LatLng numberFourteen = new LatLng(36.36714486295813, 127.34252209519627);
         LatLng numberFifteen = new LatLng(36.365987855484114, 127.3453100226298);
 
+        //첫번째 작업 : 맵을 잇기 위한 새로운 좌표 추가
+        LatLng librery = new LatLng(36.369316, 127.345914);
+
+        LatLng east_of_lib_1_intersection1= new LatLng(36.36978364, 127.34713638);
+
+        //기숙사 방향 좌표들
+        LatLng east_of_lib_2_northofInt1= new LatLng(36.37124332, 127.34732369);
+        LatLng east_of_lib_3_northofInt2= new LatLng(36.37142844,127.34732399);
+        LatLng east_of_lib_4_northofInt3= new LatLng(36.37157123,127.34723114);
+        LatLng north_of_lib= new LatLng(36.37275383,127.34604556);
+
+
+        //5 6 7 노선쪽 좌표
+        LatLng east_of_lib_6= new LatLng(36.36995399,127.34767012);
+        LatLng east_of_lib_7= new LatLng(36.37019933,127.34800274);
+        LatLng east_of_lib_8= new LatLng(36.37056608,127.34825481);
+        LatLng east_of_lib_9= new LatLng(36.3706499,127.34842395);
+        LatLng east_of_lib_10= new LatLng(36.37062608,127.34868098);
+        LatLng east_of_lib_11= new LatLng(36.37053807,127.34882131);
+        LatLng east_of_lib_12= new LatLng(36.36915108,127.34961868);
+        LatLng east_of_lib_13= new LatLng(36.36902125,127.34968559);
+        LatLng east_of_lib_14= new LatLng(36.36893412,127.34983338);
+        LatLng east_of_lib_15= new LatLng(36.36891032,127.35002309);
+        LatLng east_of_lib_16= new LatLng(36.36898677,127.3501816);
+        LatLng east_of_lib_17= new LatLng(36.36911151,127.35035572);
+        LatLng east_of_lib_18= new LatLng(36.36927499,127.35063115);
+        LatLng east_of_lib_19= new LatLng(36.36940493,127.35085204);
+        LatLng east_of_lib_20= new LatLng(36.36944893,127.35094559);
+        LatLng east_of_lib_21= new LatLng(36.3694859,127.35098716);
+        LatLng east_of_lib_22= new LatLng(36.36946077,127.35117682);
+
+        LatLng east_of_lib_intersection_to_6and7= new LatLng(36.36883054,127.35235855);
+
+        LatLng east_of_lib_24= new LatLng(36.36872541,127.35229934);
+        LatLng east_of_lib_25= new LatLng(36.36894547,127.35245851);
+        LatLng east_of_lib_26= new LatLng(36.36921879,127.35189782);
+        LatLng east_of_lib_27= new LatLng(36.36911765,127.35183482);
+
+        //도서관 서쪽으로 가기 시작하는 코스
+        LatLng west_of_lib_1= new LatLng(36.37038209,127.34423234);
+        LatLng west_of_lib_2= new LatLng(36.37047777,127.3431969);
+
+        LatLng west_of_lib_intersection= new LatLng(36.37043426,127.34291101);
+
+        //서문 방향 노선 코스
+        LatLng west_of_lib_3= new LatLng(36.36984855,127.34101124);
+        LatLng west_of_lib_4= new LatLng(36.36888636,127.34152086);
+        LatLng west_of_lib_5= new LatLng(36.36783805,127.34147325);
+        LatLng west_of_lib_6= new LatLng(36.36616327,127.34396786);
+
+        //서북쪽 노선
+        LatLng west_of_lib_7 = new LatLng(36.37137671,127.34289062);
+        LatLng west_of_lib_8= new LatLng(36.37594242,127.34441761);
+        LatLng west_of_lib_9= new LatLng(36.37612673,127.34443543);
+        LatLng west_of_lib_10= new LatLng(36.37629159,127.34443011);
+        LatLng west_of_lib_11= new LatLng(36.3763821,127.34433875);
 
         MarkerOptions stationOne = new MarkerOptions();
         stationOne.position(numberOne)
@@ -300,6 +354,62 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
         stationFifteen.icon(BitmapDescriptorFactory.fromBitmap(b15));
 
 
+        // 두번째 작업 polyline 부분 구현 ( 그냥 화면이 켜졌을때 선분이 나타나면 되는 것이라서 상관 없음 )
+        PolylineOptions polylineOptions1 = new PolylineOptions()
+                .add(new LatLng(36.36393623045683, 127.34512288367394),new LatLng(36.36739570866662, 127.34560855449526)
+                ,new LatLng(36.369316, 127.345914) ,new LatLng(36.36948527558873, 127.34637197830905),new LatLng(36.36978364, 127.34713638)
+                ,new LatLng(36.37121358, 127.34734004),new LatLng(36.37142844,127.34732399),new LatLng(36.37157123,127.34723114)
+                ,new LatLng(36.37234435419047, 127.34648149906977),new LatLng(36.37275383,127.34604556))
+                .color(Color.MAGENTA)
+                .geodesic(true);
+
+        PolylineOptions polylineOptions2 = new PolylineOptions()
+                .add(new LatLng(36.369316, 127.345914), new LatLng(36.37038209,127.34423234),new LatLng(36.370497971570686, 127.34378814811502)
+                ,new LatLng(36.37047777,127.3431969),new LatLng(36.37040177,127.34292932),new LatLng(36.36984855,127.34101124)
+                ,new LatLng(36.36888636,127.34152086),new LatLng(36.36783805,127.34147325),new LatLng(36.36714486295813, 127.34252209519627)
+                ,new LatLng(36.36616327,127.34396786),new LatLng(36.365987855484114, 127.3453100226298))
+                .color(Color.MAGENTA)
+                .geodesic(true);
+        //서북쪽 노선(인터섹션 좌표를 새로 씀 주의!)
+        PolylineOptions polylineOptions3 = new PolylineOptions()
+                .add(new LatLng(36.37039270,127.34291101),new LatLng(36.37137671,127.34289062),new LatLng(36.37191266851502, 127.34303753992411)
+                ,new LatLng(36.37432282798491, 127.34388914314896),new LatLng(36.37594242,127.34439761),new LatLng(36.37612673,127.34443543)
+                ,new LatLng(36.37629159,127.34443011),new LatLng(36.3763821,127.34433875),new LatLng(36.37642789094089, 127.34416989166898))
+                .color(Color.MAGENTA)
+                .geodesic(true);
+        // 5 6 7 번 노선
+        PolylineOptions polylineOptions4 = new PolylineOptions()
+                .add(new LatLng(36.36978364, 127.34713638),new LatLng(36.36995399,127.34767012),new LatLng(36.37019933,127.34800274)
+                ,new LatLng(36.37056608,127.34825481),new LatLng(36.3706499,127.34842395),new LatLng(36.37062608,127.34868098)
+                ,new LatLng(36.37053807,127.34882131),new LatLng(36.36915108,127.34961868),new LatLng(36.36902125,127.34968559)
+                ,new LatLng(36.36893412,127.34983338),new LatLng(36.36891032,127.35002309),new LatLng(36.36898677,127.3501816)
+                ,new LatLng(36.36911151,127.35035572),new LatLng(36.36927499,127.35063115),new LatLng(36.36940493,127.35085204)
+                ,new LatLng(36.36944893,127.35094559),new LatLng(36.3694799,127.35098716),new LatLng(36.36948077,127.35117682)
+                ,new LatLng(36.36905242935213, 127.35195036061559),new LatLng(36.36883054,127.35235855),new LatLng(36.36872541,127.35229934)
+                ,new LatLng(36.36718432295817, 127.3520528560284))
+                .color(Color.MAGENTA)
+                .geodesic(true);
+        PolylineOptions polylineOptions5 = new PolylineOptions()
+                .add(new LatLng(36.36883054,127.35235855),new LatLng(36.36894547,127.35245851),new LatLng(36.369165630679575, 127.35198915694087)
+                ,new LatLng(36.36921879,127.35189782),new LatLng(36.36911765,127.35183482))
+                .color(Color.MAGENTA)
+                .geodesic(true);
+
+        Polyline polyline1 = map.addPolyline(polylineOptions1);
+        polyline1.setJointType(JointType.ROUND);
+
+        Polyline polyline2 = map.addPolyline(polylineOptions2);
+        polyline2.setJointType(JointType.ROUND);
+
+        Polyline polyline3 = map.addPolyline(polylineOptions3);
+        polyline3.setJointType(JointType.ROUND);
+
+        Polyline polyline4 = map.addPolyline(polylineOptions4);
+        polyline4.setJointType(JointType.ROUND);
+
+        Polyline polyline5 = map.addPolyline(polylineOptions5);
+        polyline5.setJointType(JointType.ROUND);
+
         map.addMarker(stationOne);
         map.addMarker(stationTwo);
         map.addMarker(stationThree);
@@ -315,9 +425,11 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
         map.addMarker(stationThirteen);
         map.addMarker(stationFourteen);
         map.addMarker(stationFifteen);
-
         //충남대학교로 지도 이동
         setDefaultLocation();
+
+
+
 
 
         // 런타임 퍼미션 처리
@@ -522,8 +634,6 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
         return false;
 
     }
-
-
 
     /*
      * ActivityCompat.requestPermissions를 사용한 퍼미션 요청의 결과를 리턴받는 메소드입니다.
