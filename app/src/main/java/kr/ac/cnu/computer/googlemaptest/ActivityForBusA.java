@@ -17,10 +17,11 @@ package kr.ac.cnu.computer.googlemaptest;
  */
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
-import android.os.SystemClock;
+import android.os.*;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -35,32 +36,23 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.*;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.*;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -74,9 +66,9 @@ import com.google.firebase.database.ValueEventListener;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback
 {
-
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     DatabaseReference busLocation = mDatabase.child("location");
+    DatabaseReference busA = mDatabase.child("busA");
 
     private GoogleMap map;
 
@@ -106,6 +98,14 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
 
     private LatLng currentBusLocation;
     private Marker currentBusMarker = null;
+
+    private boolean connected = false;
+    private boolean running = false;
+    private boolean[] visited = new boolean[15];
+
+
+    TextView textView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -142,7 +142,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
         });
 
         // B노선 액티비티로 화면 전환하는 버튼입니다.
-        Button switchToBButton = findViewById(R.id.switchToB);
+        ImageButton switchToBButton = findViewById(R.id.switchToB);
         switchToBButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,11 +152,13 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
             }
         });
 
+        textView = findViewById(R.id.textView);
+
+
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap)
-    {
+    public void onMapReady(GoogleMap googleMap) {
         Log.d(TAG, "onMapReady");
 
         map = googleMap;
@@ -178,6 +180,63 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
         LatLng numberFourteen = new LatLng(36.36714486295813, 127.34252209519627);
         LatLng numberFifteen = new LatLng(36.365987855484114, 127.3453100226298);
 
+
+        //첫번째 작업 : 맵을 잇기 위한 새로운 좌표 추가
+        LatLng librery = new LatLng(36.369316, 127.345914);
+
+        LatLng east_of_lib_1_intersection1= new LatLng(36.36978364, 127.34713638);
+
+        //기숙사 방향 좌표들
+        LatLng east_of_lib_2_northofInt1= new LatLng(36.37124332, 127.34732369);
+        LatLng east_of_lib_3_northofInt2= new LatLng(36.37142844,127.34732399);
+        LatLng east_of_lib_4_northofInt3= new LatLng(36.37157123,127.34723114);
+        LatLng north_of_lib= new LatLng(36.37275383,127.34604556);
+
+
+        //5 6 7 노선쪽 좌표
+        LatLng east_of_lib_6= new LatLng(36.36995399,127.34767012);
+        LatLng east_of_lib_7= new LatLng(36.37019933,127.34800274);
+        LatLng east_of_lib_8= new LatLng(36.37056608,127.34825481);
+        LatLng east_of_lib_9= new LatLng(36.3706499,127.34842395);
+        LatLng east_of_lib_10= new LatLng(36.37062608,127.34868098);
+        LatLng east_of_lib_11= new LatLng(36.37053807,127.34882131);
+        LatLng east_of_lib_12= new LatLng(36.36915108,127.34961868);
+        LatLng east_of_lib_13= new LatLng(36.36902125,127.34968559);
+        LatLng east_of_lib_14= new LatLng(36.36893412,127.34983338);
+        LatLng east_of_lib_15= new LatLng(36.36891032,127.35002309);
+        LatLng east_of_lib_16= new LatLng(36.36898677,127.3501816);
+        LatLng east_of_lib_17= new LatLng(36.36911151,127.35035572);
+        LatLng east_of_lib_18= new LatLng(36.36927499,127.35063115);
+        LatLng east_of_lib_19= new LatLng(36.36940493,127.35085204);
+        LatLng east_of_lib_20= new LatLng(36.36944893,127.35094559);
+        LatLng east_of_lib_21= new LatLng(36.3694859,127.35098716);
+        LatLng east_of_lib_22= new LatLng(36.36946077,127.35117682);
+
+        LatLng east_of_lib_intersection_to_6and7= new LatLng(36.36883054,127.35235855);
+
+        LatLng east_of_lib_24= new LatLng(36.36872541,127.35229934);
+        LatLng east_of_lib_25= new LatLng(36.36894547,127.35245851);
+        LatLng east_of_lib_26= new LatLng(36.36921879,127.35189782);
+        LatLng east_of_lib_27= new LatLng(36.36911765,127.35183482);
+
+        //도서관 서쪽으로 가기 시작하는 코스
+        LatLng west_of_lib_1= new LatLng(36.37038209,127.34423234);
+        LatLng west_of_lib_2= new LatLng(36.37047777,127.3431969);
+
+        LatLng west_of_lib_intersection= new LatLng(36.37043426,127.34291101);
+
+        //서문 방향 노선 코스
+        LatLng west_of_lib_3= new LatLng(36.36984855,127.34101124);
+        LatLng west_of_lib_4= new LatLng(36.36888636,127.34152086);
+        LatLng west_of_lib_5= new LatLng(36.36783805,127.34147325);
+        LatLng west_of_lib_6= new LatLng(36.36616327,127.34396786);
+
+        //서북쪽 노선
+        LatLng west_of_lib_7 = new LatLng(36.37137671,127.34289062);
+        LatLng west_of_lib_8= new LatLng(36.37594242,127.34441761);
+        LatLng west_of_lib_9= new LatLng(36.37612673,127.34443543);
+        LatLng west_of_lib_10= new LatLng(36.37629159,127.34443011);
+        LatLng west_of_lib_11= new LatLng(36.3763821,127.34433875);
 
         MarkerOptions stationOne = new MarkerOptions();
         stationOne.position(numberOne)
@@ -299,6 +358,62 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
         Bitmap b15 = bitmapDrawStationFifteen.getBitmap();
         stationFifteen.icon(BitmapDescriptorFactory.fromBitmap(b15));
 
+        // 두번째 작업 polyline 부분 구현 ( 그냥 화면이 켜졌을때 선분이 나타나면 되는 것이라서 상관 없음 )
+        PolylineOptions polylineOptions1 = new PolylineOptions()
+                .add(new LatLng(36.36393623045683, 127.34512288367394),new LatLng(36.36739570866662, 127.34560855449526)
+                        ,new LatLng(36.369316, 127.345914) ,new LatLng(36.36948527558873, 127.34637197830905),new LatLng(36.36978364, 127.34713638)
+                        ,new LatLng(36.37121358, 127.34734004),new LatLng(36.37142844,127.34732399),new LatLng(36.37157123,127.34723114)
+                        ,new LatLng(36.37234435419047, 127.34648149906977),new LatLng(36.37275383,127.34604556))
+                .color(Color.BLUE)
+                .geodesic(true);
+
+        PolylineOptions polylineOptions2 = new PolylineOptions()
+                .add(new LatLng(36.369316, 127.345914), new LatLng(36.37038209,127.34423234),new LatLng(36.370497971570686, 127.34378814811502)
+                        ,new LatLng(36.37047777,127.3431969),new LatLng(36.37040177,127.34292932),new LatLng(36.36984855,127.34101124)
+                        ,new LatLng(36.36888636,127.34152086),new LatLng(36.36783805,127.34147325),new LatLng(36.36714486295813, 127.34252209519627)
+                        ,new LatLng(36.36616327,127.34396786),new LatLng(36.365987855484114, 127.3453100226298))
+                .color(Color.BLUE)
+                .geodesic(true);
+        //서북쪽 노선(인터섹션 좌표를 새로 씀 주의!)
+        PolylineOptions polylineOptions3 = new PolylineOptions()
+                .add(new LatLng(36.37039270,127.34291101),new LatLng(36.37137671,127.34289062),new LatLng(36.37191266851502, 127.34303753992411)
+                        ,new LatLng(36.37432282798491, 127.34388914314896),new LatLng(36.37594242,127.34439761),new LatLng(36.37612673,127.34443543)
+                        ,new LatLng(36.37629159,127.34443011),new LatLng(36.3763821,127.34433875),new LatLng(36.37642789094089, 127.34416989166898))
+                .color(Color.BLUE)
+                .geodesic(true);
+        // 5 6 7 번 노선
+        PolylineOptions polylineOptions4 = new PolylineOptions()
+                .add(new LatLng(36.36978364, 127.34713638),new LatLng(36.36995399,127.34767012),new LatLng(36.37019933,127.34800274)
+                        ,new LatLng(36.37056608,127.34825481),new LatLng(36.3706499,127.34842395),new LatLng(36.37062608,127.34868098)
+                        ,new LatLng(36.37053807,127.34882131),new LatLng(36.36915108,127.34961868),new LatLng(36.36902125,127.34968559)
+                        ,new LatLng(36.36893412,127.34983338),new LatLng(36.36891032,127.35002309),new LatLng(36.36898677,127.3501816)
+                        ,new LatLng(36.36911151,127.35035572),new LatLng(36.36927499,127.35063115),new LatLng(36.36940493,127.35085204)
+                        ,new LatLng(36.36944893,127.35094559),new LatLng(36.3694799,127.35098716),new LatLng(36.36948077,127.35117682)
+                        ,new LatLng(36.36905242935213, 127.35195036061559),new LatLng(36.36883054,127.35235855),new LatLng(36.36872541,127.35229934)
+                        ,new LatLng(36.36718432295817, 127.3520528560284))
+                .color(Color.BLUE)
+                .geodesic(true);
+        PolylineOptions polylineOptions5 = new PolylineOptions()
+                .add(new LatLng(36.36883054,127.35235855),new LatLng(36.36894547,127.35245851),new LatLng(36.369165630679575, 127.35198915694087)
+                        ,new LatLng(36.36921879,127.35189782),new LatLng(36.36911765,127.35183482))
+                .color(Color.BLUE)
+                .geodesic(true);
+
+        Polyline polyline1 = map.addPolyline(polylineOptions1);
+        polyline1.setJointType(JointType.ROUND);
+
+        Polyline polyline2 = map.addPolyline(polylineOptions2);
+        polyline2.setJointType(JointType.ROUND);
+
+        Polyline polyline3 = map.addPolyline(polylineOptions3);
+        polyline3.setJointType(JointType.ROUND);
+
+        Polyline polyline4 = map.addPolyline(polylineOptions4);
+        polyline4.setJointType(JointType.ROUND);
+
+        Polyline polyline5 = map.addPolyline(polylineOptions5);
+        polyline5.setJointType(JointType.ROUND);
+
 
         map.addMarker(stationOne);
         map.addMarker(stationTwo);
@@ -328,7 +443,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                 Manifest.permission.ACCESS_COARSE_LOCATION);
 
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
-        hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
+                hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
             // 2. 이미 퍼미션을 가지고 있다면 (안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
             startLocationUpdates(); // 3. 위치 업데이트 시작
         } else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
@@ -360,7 +475,56 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
             }
         });
 
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                Date currentTime = new Date();
+                int hour = currentTime.getHours();
+                int minute = currentTime.getMinutes();
+                int seconds = currentTime.getSeconds();
 
+                if (hour <= 7 || hour >= 18) { running = false; }
+                else { running = true; }
+
+                if (!running) {
+                    textView.setText("버스 운행이 종료되었습니다.");
+                } else {
+                    if (!connected) {
+                        textView.setText("버스의 위치 정보를 불러올 수 없습니다.");
+                    } else {
+                        if (visited[0]) {textView.setText("정심화국제문화회관 -> 경상대학");}
+                        else if (visited[1]) {textView.setText("경상대학 -> 도서관");}
+                        else if (visited[2]) {textView.setText("도서관 -> 학생생활관");}
+                        else if (visited[3]) {textView.setText("학생생활관 -> 농대");}
+                        else if (visited[4]) {textView.setText("농대 -> 동문");}
+                        else if (visited[5]) {textView.setText("동문 -> 농대");}
+                        else if (visited[6]) {textView.setText("농대 -> 도서관");}
+                        else if (visited[7]) {textView.setText("도서관 -> 예술대");}
+                        else if (visited[8]) {textView.setText("예술대 -> 음악2");}
+                        else if (visited[9]) {textView.setText("음악2 -> 공동동물실습");}
+                        else if (visited[10]) {textView.setText("공동동물실습 -> 체육관");}
+                        else if (visited[11]) {textView.setText("체육관 -> 서문");}
+                        else if (visited[12]) {textView.setText("서문 -> 사과대");}
+                        else if (visited[13]) {textView.setText("사과대 -> 산학연");}
+                        else if (visited[14]) {textView.setText("산학연 -> 정심화국제문화회관");}
+                        else { textView.setText("다음 버스 대기 중"); }
+                    }
+                }
+            }
+        };
+
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try { Thread.sleep(1000); }
+                    catch (InterruptedException e) {}
+                    handler.sendEmptyMessage(1);
+                }
+            }
+        };
+        Thread thread = new Thread(task);
+        thread.start();
 
     }
 
@@ -419,6 +583,8 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
     }
 
 
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -436,25 +602,60 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
 
         }
 
+        busA.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    connected = (boolean) snapshot.child("connected").getValue();
+                    visited[0] = (boolean) snapshot.child("station1").child("visit").getValue();
+                    visited[1] = (boolean) snapshot.child("station2").child("visit").getValue();
+                    visited[2] = (boolean) snapshot.child("station3").child("visit").getValue();
+                    visited[3] = (boolean) snapshot.child("station4").child("visit").getValue();
+                    visited[4] = (boolean) snapshot.child("station5").child("visit").getValue();
+                    visited[5] = (boolean) snapshot.child("station6").child("visit").getValue();
+                    visited[6] = (boolean) snapshot.child("station7").child("visit").getValue();
+                    visited[7] = (boolean) snapshot.child("station8").child("visit").getValue();
+                    visited[8] = (boolean) snapshot.child("station9").child("visit").getValue();
+                    visited[9] = (boolean) snapshot.child("station10").child("visit").getValue();
+                    visited[10] = (boolean) snapshot.child("station11").child("visit").getValue();
+                    visited[11] = (boolean) snapshot.child("station12").child("visit").getValue();
+                    visited[12] = (boolean) snapshot.child("station13").child("visit").getValue();
+                    visited[13] = (boolean) snapshot.child("station14").child("visit").getValue();
+                    visited[14] = (boolean) snapshot.child("station15").child("visit").getValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         busLocation.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (currentBusMarker != null) currentBusMarker.remove();
+                if (connected) {
+                    if (currentBusMarker != null) currentBusMarker.remove();
 
-                final double latitude = (double) dataSnapshot.child("latitude").getValue();
-                final double longitude = (double) dataSnapshot.child("longitude").getValue();
+                    final double latitude = (double) dataSnapshot.child("latitude").getValue();
+                    final double longitude = (double) dataSnapshot.child("longitude").getValue();
 
-                currentBusLocation = new LatLng(latitude, longitude);
-                MarkerOptions busMarkerOptions = new MarkerOptions();
-                busMarkerOptions.position(currentBusLocation);
+                    currentBusLocation = new LatLng(latitude, longitude);
+                    MarkerOptions busMarkerOptions = new MarkerOptions();
+                    busMarkerOptions.position(currentBusLocation);
 
-                BitmapDrawable bitmapDrawBus = (BitmapDrawable) getResources().getDrawable(R.drawable.bus_icon);
-                Bitmap b = bitmapDrawBus.getBitmap();
-                busMarkerOptions.icon(BitmapDescriptorFactory.fromBitmap(b));
+                    BitmapDrawable bitmapDrawBus = (BitmapDrawable) getResources().getDrawable(R.drawable.bus_icon);
+                    Bitmap b = bitmapDrawBus.getBitmap();
+                    busMarkerOptions.icon(BitmapDescriptorFactory.fromBitmap(b));
 
-                currentBusMarker = map.addMarker(busMarkerOptions);
+                    currentBusMarker = map.addMarker(busMarkerOptions);
+                }
+                else {
+                    if (currentBusMarker != null) currentBusMarker.remove();
+                }
 
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
