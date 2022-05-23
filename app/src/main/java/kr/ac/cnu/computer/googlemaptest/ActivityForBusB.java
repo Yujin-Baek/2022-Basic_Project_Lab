@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.widget.Button;
+import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -96,7 +97,7 @@ public class ActivityForBusB extends AppCompatActivity implements OnMapReadyCall
             }
         });
 
-        Button switchToAButton = findViewById(R.id.switchToA);
+        ImageButton switchToAButton = findViewById(R.id.switchToA);
         switchToAButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -186,7 +187,6 @@ public class ActivityForBusB extends AppCompatActivity implements OnMapReadyCall
         LatLng west_of_lib_9= new LatLng(36.37612673,127.34443543);
         LatLng west_of_lib_10= new LatLng(36.37629159,127.34443011);
         LatLng west_of_lib_11= new LatLng(36.3763821,127.34433875);
-
 
         MarkerOptions stationOne = new MarkerOptions();
         stationOne.position(numberOne)
