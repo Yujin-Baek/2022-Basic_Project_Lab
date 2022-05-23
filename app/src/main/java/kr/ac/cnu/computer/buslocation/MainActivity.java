@@ -1,5 +1,7 @@
 package kr.ac.cnu.computer.buslocation;
 
+import android.os.Handler;
+import android.os.Message;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +35,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Date;
 import java.util.List;
 
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     DatabaseReference busLocation = mDatabase.child("location");
+    DatabaseReference busA = mDatabase.child("busA");
 
     private GoogleMap map;
 
@@ -63,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION};
 
+    public final static double AVERAGE_RADIUS_OF_EARTH_KM = 6371;
+
     Location mCurrentLocation;
     LatLng currentPosition;
 
@@ -70,6 +76,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private LocationRequest locationRequest;
     private Location location;
     private boolean doesSetCurrentLocation = false;
+
+    private boolean[] visited = new boolean[15];
+    private boolean running = false;
+    private boolean lastStop = false;
 
     private View mLayout; // Snackbar 사용하기 위해서는 View가 필요합니다.
 
@@ -263,6 +273,99 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                Date currentTime = new Date();
+                int hour = currentTime.getHours();
+                int minute = currentTime.getMinutes();
+                int seconds = currentTime.getSeconds();
+
+                if (hour <= 7 || hour >= 18) { running = false; }
+                else {
+                    switch (hour) {
+                        case 9:
+                        case 11:
+                        case 13:
+                        case 14:
+                        case 15:
+                        case 16:
+                        case 17:
+                            switch (minute) {
+                                case 0:
+                                case 30:
+                                    running = true;
+                            }
+                    }
+                }
+
+                if (running) {
+                    if (calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberOne.latitude, numberOne.longitude) <= 0.1) {
+                        if (visited[14]) {
+                            busA.child("station15").child("visit").setValue(false);
+                            running = false;
+                        } else {
+                            busA.child("station1").child("visit").setValue(true);
+                        }
+                    } else if (visited[0] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberTwo.latitude, numberTwo.longitude) <= 0.05) {
+                        busA.child("station1").child("visit").setValue(false);
+                        busA.child("station2").child("visit").setValue(true);
+                    } else if (visited[1] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberThree.latitude, numberThree.longitude) <= 0.05) {
+                        busA.child("station2").child("visit").setValue(false);
+                        busA.child("station3").child("visit").setValue(true);
+                    } else if (visited[2] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFour.latitude, numberFour.longitude) <= 0.05) {
+                        busA.child("station3").child("visit").setValue(false);
+                        busA.child("station4").child("visit").setValue(true);
+                    } else if (visited[3] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFive.latitude, numberFive.longitude) <= 0.05) {
+                        busA.child("station4").child("visit").setValue(false);
+                        busA.child("station5").child("visit").setValue(true);
+                    } else if (visited[4] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberSix.latitude, numberSeven.longitude) <= 0.05) {
+                        busA.child("station5").child("visit").setValue(false);
+                        busA.child("station6").child("visit").setValue(true);
+                    } else if (visited[5] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberSeven.latitude, numberSeven.longitude) <= 0.05) {
+                        busA.child("station6").child("visit").setValue(false);
+                        busA.child("station7").child("visit").setValue(true);
+                    } else if (visited[6] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberEight.latitude, numberEight.longitude) <= 0.05) {
+                        busA.child("station7").child("visit").setValue(false);
+                        busA.child("station8").child("visit").setValue(true);
+                    } else if (visited[7] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberNine.latitude, numberNine.longitude) <= 0.05) {
+                        busA.child("station8").child("visit").setValue(false);
+                        busA.child("station9").child("visit").setValue(true);
+                    } else if (visited[8] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberTen.latitude, numberTen.longitude) <= 0.05) {
+                        busA.child("station9").child("visit").setValue(false);
+                        busA.child("station10").child("visit").setValue(true);
+                    } else if (visited[9] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberEleven.latitude, numberEleven.longitude) <= 0.05) {
+                        busA.child("station10").child("visit").setValue(false);
+                        busA.child("station11").child("visit").setValue(true);
+                    } else if (visited[10] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberTwelve.latitude, numberTwelve.longitude) <= 0.05) {
+                        busA.child("station11").child("visit").setValue(false);
+                        busA.child("station12").child("visit").setValue(true);
+                    } else if (visited[11] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberThirteen.latitude, numberThirteen.longitude) <= 0.05) {
+                        busA.child("station12").child("visit").setValue(false);
+                        busA.child("station13").child("visit").setValue(true);
+                    } else if (visited[12] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFourteen.latitude, numberFourteen.longitude) <= 0.05) {
+                        busA.child("station13").child("visit").setValue(false);
+                        busA.child("station14").child("visit").setValue(true);
+                    } else if (visited[13] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFifteen.latitude, numberFifteen.longitude) <= 0.05) {
+                        busA.child("station14").child("visit").setValue(false);
+                        busA.child("station15").child("visit").setValue(true);
+                    }
+                }
+            }
+        };
+
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try { Thread.sleep(1000); }
+                    catch (InterruptedException e) {}
+                    handler.sendEmptyMessage(1);
+                }
+            }
+        };
+        Thread thread = new Thread(task);
+        thread.start();
 
 
     }
@@ -324,6 +427,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
+
+    public double calculateDistanceInMeter(double userLat, double userLng, double venueLat, double venueLng) {
+
+        double latDistance = Math.toRadians(userLat - venueLat);
+        double lngDistance = Math.toRadians(userLng - venueLng);
+
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(userLat)) * Math.cos(Math.toRadians(venueLat))
+                * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return Math.round(AVERAGE_RADIUS_OF_EARTH_KM * c * 1000)/1000.0;
+    }
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -341,7 +460,35 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         }
 
+        busA.child("connected").setValue(true);
 
+        busA.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    visited[0] = (boolean) snapshot.child("station1").child("visit").getValue();
+                    visited[1] = (boolean) snapshot.child("station2").child("visit").getValue();
+                    visited[2] = (boolean) snapshot.child("station3").child("visit").getValue();
+                    visited[3] = (boolean) snapshot.child("station4").child("visit").getValue();
+                    visited[4] = (boolean) snapshot.child("station5").child("visit").getValue();
+                    visited[5] = (boolean) snapshot.child("station6").child("visit").getValue();
+                    visited[6] = (boolean) snapshot.child("station7").child("visit").getValue();
+                    visited[7] = (boolean) snapshot.child("station8").child("visit").getValue();
+                    visited[8] = (boolean) snapshot.child("station9").child("visit").getValue();
+                    visited[9] = (boolean) snapshot.child("station10").child("visit").getValue();
+                    visited[10] = (boolean) snapshot.child("station11").child("visit").getValue();
+                    visited[11] = (boolean) snapshot.child("station12").child("visit").getValue();
+                    visited[12] = (boolean) snapshot.child("station13").child("visit").getValue();
+                    visited[13] = (boolean) snapshot.child("station14").child("visit").getValue();
+                    visited[14] = (boolean) snapshot.child("station15").child("visit").getValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 
@@ -355,6 +502,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             Log.d(TAG, "onStop : call stopLocationUpdates");
             mFusedLocationClient.removeLocationUpdates(locationCallback);
         }
+
+        busA.child("connected").setValue(false);
     }
 
 
