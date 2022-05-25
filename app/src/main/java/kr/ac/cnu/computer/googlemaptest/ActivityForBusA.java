@@ -117,6 +117,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
 
         setContentView(R.layout.activity_bus_a);
 
+
         locationRequest = new LocationRequest()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(UPDATE_INTERVAL_MS)
@@ -133,7 +134,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
         mapFragment.getMapAsync(this);
 
         // 지도의 초기 위치를 충남대학교로 이동하는 버튼입니다.
-        Button moveToCNU = findViewById(R.id.moveToCNU);
+        ImageButton moveToCNU = findViewById(R.id.moveToCNU);
         moveToCNU.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
@@ -363,7 +364,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                         ,new LatLng(36.369316, 127.345914) ,new LatLng(36.36948527558873, 127.34637197830905),new LatLng(36.36978364, 127.34713638)
                         ,new LatLng(36.37121358, 127.34734004),new LatLng(36.37142844,127.34732399),new LatLng(36.37157123,127.34723114)
                         ,new LatLng(36.37234435419047, 127.34648149906977),new LatLng(36.37275383,127.34604556))
-                .color(Color.BLUE)
+                .color(Color.RED)
                 .geodesic(true);
 
         PolylineOptions polylineOptions2 = new PolylineOptions()
@@ -371,14 +372,14 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                         ,new LatLng(36.37047777,127.3431969),new LatLng(36.37040177,127.34292932),new LatLng(36.36984855,127.34101124)
                         ,new LatLng(36.36888636,127.34152086),new LatLng(36.36783805,127.34147325),new LatLng(36.36714486295813, 127.34252209519627)
                         ,new LatLng(36.36616327,127.34396786),new LatLng(36.365987855484114, 127.3453100226298))
-                .color(Color.BLUE)
+                .color(Color.RED)
                 .geodesic(true);
         //서북쪽 노선(인터섹션 좌표를 새로 씀 주의!)
         PolylineOptions polylineOptions3 = new PolylineOptions()
                 .add(new LatLng(36.37039270,127.34291101),new LatLng(36.37137671,127.34289062),new LatLng(36.37191266851502, 127.34303753992411)
                         ,new LatLng(36.37432282798491, 127.34388914314896),new LatLng(36.37594242,127.34439761),new LatLng(36.37612673,127.34443543)
                         ,new LatLng(36.37629159,127.34443011),new LatLng(36.3763821,127.34433875),new LatLng(36.37642789094089, 127.34416989166898))
-                .color(Color.BLUE)
+                .color(Color.RED)
                 .geodesic(true);
         // 5 6 7 번 노선
         PolylineOptions polylineOptions4 = new PolylineOptions()
@@ -390,12 +391,12 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                         ,new LatLng(36.36944893,127.35094559),new LatLng(36.3694799,127.35098716),new LatLng(36.36948077,127.35117682)
                         ,new LatLng(36.36905242935213, 127.35195036061559),new LatLng(36.36883054,127.35235855),new LatLng(36.36872541,127.35229934)
                         ,new LatLng(36.36718432295817, 127.3520528560284))
-                .color(Color.BLUE)
+                .color(Color.RED)
                 .geodesic(true);
         PolylineOptions polylineOptions5 = new PolylineOptions()
                 .add(new LatLng(36.36883054,127.35235855),new LatLng(36.36894547,127.35245851),new LatLng(36.369165630679575, 127.35198915694087)
                         ,new LatLng(36.36921879,127.35189782),new LatLng(36.36911765,127.35183482))
-                .color(Color.BLUE)
+                .color(Color.RED)
                 .geodesic(true);
 
         Polyline polyline1 = map.addPolyline(polylineOptions1);

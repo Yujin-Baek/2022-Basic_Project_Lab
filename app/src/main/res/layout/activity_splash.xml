@@ -13,6 +13,6 @@
             app:srcCompat="@drawable/logo"
             android:layout_gravity="center"
             android:id="@+id/logo"
-    />
+        />
 
 </FrameLayout>
