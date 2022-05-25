@@ -18,13 +18,15 @@
                 android:name="com.google.android.geo.API_KEY"
                 android:value="AIzaSyD6WWrKLO0LqB4BO8mf5AsQVCDxn9G5kNc" />
 
-        <activity android:name=".ActivityForBusA"
+        <activity android:name="splashActivity"
         >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".ActivityForBusA">
         </activity>
         <activity android:name=".ActivityForBusB">
         </activity>
