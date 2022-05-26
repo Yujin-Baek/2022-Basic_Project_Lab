@@ -49,6 +49,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.*;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -102,9 +103,30 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
     private boolean connected = false;
     private boolean running = false;
     private boolean[] visited = new boolean[15];
+    private boolean[] visited2 = new boolean[15];
 
 
     TextView textView; // 이게 스니펫으로 불러올 텍스트인가?? 잠만 텍스트 뷰가 이거 하난테 설마 이걸로 전부 다 쓴거야??
+
+    TextView textView1;
+    TextView textView2;
+    TextView textView3;
+    TextView textView4;
+    TextView textView5;
+    TextView textView6;
+    TextView textView7;
+    TextView textView8;
+    TextView textView9;
+    TextView textView10;
+    TextView textView11;
+    TextView textView12;
+    TextView textView13;
+    TextView textView14;
+    TextView textView15;
+
+
+    private String[] startTimeArr;
+    private int[] stationTimeArr;
 
 
     @Override
@@ -154,6 +176,47 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
         });
 
         textView = findViewById(R.id.textView);
+
+        textView1 = findViewById(R.id.textView1);
+        textView2 = findViewById(R.id.textView2);
+        textView3 = findViewById(R.id.textView3);
+        textView4 = findViewById(R.id.textView4);
+        textView5 = findViewById(R.id.textView5);
+        textView6 = findViewById(R.id.textView6);
+        textView7 = findViewById(R.id.textView7);
+        textView8 = findViewById(R.id.textView8);
+        textView9 = findViewById(R.id.textView9);
+        textView10 = findViewById(R.id.textView10);
+        textView11 = findViewById(R.id.textView11);
+        textView12 = findViewById(R.id.textView12);
+        textView13 = findViewById(R.id.textView13);
+        textView14 = findViewById(R.id.textView14);
+        textView15 = findViewById(R.id.textView15);
+
+
+        startTimeArr = new String[15];
+
+        startTimeArr[0] = "14:30";
+        startTimeArr[1] = "15:00";
+        startTimeArr[2] = "15:30";
+        startTimeArr[3] = "16:00";
+        startTimeArr[4] = "16:30";
+        startTimeArr[5] = "17:00";
+        startTimeArr[6] = "17:30";
+        startTimeArr[7] = "18:00";
+        startTimeArr[8] = "19:00";
+        startTimeArr[9] = "19:30";
+        startTimeArr[10] = "21:00";
+        startTimeArr[11] = "21:30";
+        startTimeArr[12] = "22:30";
+        startTimeArr[13] = "23:00";
+        startTimeArr[14] = "23:30";
+
+        stationTimeArr = new int[15];
+
+        for(int i=0; i<stationTimeArr.length; i++) {
+            stationTimeArr[i] = i;
+        }
 
 
     }
@@ -489,8 +552,9 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                 int minute = currentTime.getMinutes();
                 int seconds = currentTime.getSeconds();
 
-                if (hour <= 7 || hour >= 18) { running = false; }
-                else { running = true; }
+//                if (hour <= 7 || hour >= 18) { running = false; }
+//                else { running = true; }
+                running = true;
 
                 if (!running) {
                     textView.setText("버스 운행이 종료되었습니다.");
@@ -498,22 +562,896 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                     if (!connected) {
                         textView.setText("버스의 위치 정보를 불러올 수 없습니다.");
                     } else {
-                        if (visited[0]) {textView.setText("정심화국제문화회관 -> 경상대학");}
-                        else if (visited[1]) {textView.setText("경상대학 -> 도서관");}
-                        else if (visited[2]) {textView.setText("도서관 -> 학생생활관");}
-                        else if (visited[3]) {textView.setText("학생생활관 -> 농대");}
-                        else if (visited[4]) {textView.setText("농대 -> 동문");}
-                        else if (visited[5]) {textView.setText("동문 -> 농대");}
-                        else if (visited[6]) {textView.setText("농대 -> 도서관");}
-                        else if (visited[7]) {textView.setText("도서관 -> 예술대");}
-                        else if (visited[8]) {textView.setText("예술대 -> 음악2");}
-                        else if (visited[9]) {textView.setText("음악2 -> 공동동물실습");}
-                        else if (visited[10]) {textView.setText("공동동물실습 -> 체육관");}
-                        else if (visited[11]) {textView.setText("체육관 -> 서문");}
-                        else if (visited[12]) {textView.setText("서문 -> 사과대");}
-                        else if (visited[13]) {textView.setText("사과대 -> 산학연");}
-                        else if (visited[14]) {textView.setText("산학연 -> 정심화국제문화회관");}
-                        else { textView.setText("다음 버스 대기 중"); }
+                        if (visited[0]) {
+                            textView.setText("정심화국제문화회관 -> 경상대학");
+                            long min = 1000;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                            for (int i=0; i<startTimeArr.length; i++) {
+                                String reqDateStr = startTimeArr[i];
+                                try{
+                                    Date reqDate = dateFormat.parse(reqDateStr);
+                                    long reqDateTime = reqDate.getTime();
+                                    //현재시간을 요청시간의 형태로 format 후 time 가져오기
+                                    currentTime = dateFormat.parse(dateFormat.format(currentTime));
+                                    long curDateTime = currentTime.getTime();
+                                    //분으로 표현
+                                    long gap = (reqDateTime - curDateTime) / 60000;
+
+                                    if(min>gap && gap>0) {
+                                        min = gap;
+                                    }
+                                } catch(ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                            long setTime = min + stationTimeArr[0];
+                            textView1.setText(setTime+"");
+                            //첫 번째 정류장은 다음 출발시간까지 남은 시간으로 세팅
+                            textView2.setText(stationTimeArr[1]+"");
+                            textView3.setText(stationTimeArr[2]+"");
+                            textView4.setText(stationTimeArr[3]+"");
+                            textView5.setText(stationTimeArr[4]+"");
+                            textView6.setText(stationTimeArr[5]+"");
+                            textView7.setText(stationTimeArr[6]+"");
+                            textView8.setText(stationTimeArr[7]+"");
+                            textView9.setText(stationTimeArr[8]+"");
+                            textView10.setText(stationTimeArr[9]+"");
+                            textView11.setText(stationTimeArr[10]+"");
+                            textView12.setText(stationTimeArr[11]+"");
+                            textView13.setText(stationTimeArr[12]+"");
+                            textView14.setText(stationTimeArr[13]+"");
+                            textView15.setText(stationTimeArr[14]+"");
+                            //나머지 정류장은 stationTime으로 세팅
+                        }
+                        else if (visited[1]) {
+                            textView.setText("경상대학 -> 도서관");
+                            long min = 1000;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                            for (int i=0; i<startTimeArr.length; i++) {
+                                String reqDateStr = startTimeArr[i];
+                                try{
+                                    Date reqDate = dateFormat.parse(reqDateStr);
+                                    long reqDateTime = reqDate.getTime();
+                                    //현재시간을 요청시간의 형태로 format 후 time 가져오기
+                                    currentTime = dateFormat.parse(dateFormat.format(currentTime));
+                                    long curDateTime = currentTime.getTime();
+                                    //분으로 표현
+                                    long gap = (reqDateTime - curDateTime) / 60000;
+
+                                    if(min>gap && gap>0) {
+                                        min = gap;
+                                    }
+                                } catch(ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                            long setTime = min; //setTime은 다음 출발시간까지 남은 시간
+                            if(visited2[1]) {
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+
+                                textView1.setText(setTime+"");
+                                textView3.setText((stationTimeArr[2]-stationTimeArr[1])+"");
+                                textView4.setText((stationTimeArr[3]-stationTimeArr[1])+"");
+                                textView5.setText((stationTimeArr[4]-stationTimeArr[1])+"");
+                                textView6.setText((stationTimeArr[5]-stationTimeArr[1])+"");
+                                textView7.setText((stationTimeArr[6]-stationTimeArr[1])+"");
+                                textView8.setText((stationTimeArr[7]-stationTimeArr[1])+"");
+                                textView9.setText((stationTimeArr[8]-stationTimeArr[1])+"");
+                                textView10.setText((stationTimeArr[9]-stationTimeArr[1])+"");
+                                textView11.setText((stationTimeArr[10]-stationTimeArr[1])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[1])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[1])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[1])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[1])+"");
+                            } else {
+                                textView1.setText(setTime+"");
+                                textView2.setText("곧 도착");
+                                textView3.setText((stationTimeArr[2]-stationTimeArr[1])+"");
+                                textView4.setText((stationTimeArr[3]-stationTimeArr[1])+"");
+                                textView5.setText((stationTimeArr[4]-stationTimeArr[1])+"");
+                                textView6.setText((stationTimeArr[5]-stationTimeArr[1])+"");
+                                textView7.setText((stationTimeArr[6]-stationTimeArr[1])+"");
+                                textView8.setText((stationTimeArr[7]-stationTimeArr[1])+"");
+                                textView9.setText((stationTimeArr[8]-stationTimeArr[1])+"");
+                                textView10.setText((stationTimeArr[9]-stationTimeArr[1])+"");
+                                textView11.setText((stationTimeArr[10]-stationTimeArr[1])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[1])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[1])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[1])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[1])+"");
+                            }
+                        }
+                        else if (visited[2]) {
+                            textView.setText("도서관 -> 학생생활관");
+                            long min = 1000;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                            for (int i=0; i<startTimeArr.length; i++) {
+                                String reqDateStr = startTimeArr[i];
+                                try{
+                                    Date reqDate = dateFormat.parse(reqDateStr);
+                                    long reqDateTime = reqDate.getTime();
+                                    //현재시간을 요청시간의 형태로 format 후 time 가져오기
+                                    currentTime = dateFormat.parse(dateFormat.format(currentTime));
+                                    long curDateTime = currentTime.getTime();
+                                    //분으로 표현
+                                    long gap = (reqDateTime - curDateTime) / 60000;
+
+                                    if(min>gap && gap>0) {
+                                        min = gap;
+                                    }
+                                } catch(ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                            long setTime = min; //setTime은 다음 출발시간까지 남은 시간
+                            if(visited2[2]) {
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView4.setText((stationTimeArr[3]-stationTimeArr[2])+"");
+                                textView5.setText((stationTimeArr[4]-stationTimeArr[2])+"");
+                                textView6.setText((stationTimeArr[5]-stationTimeArr[2])+"");
+                                textView7.setText((stationTimeArr[6]-stationTimeArr[2])+"");
+                                textView8.setText((stationTimeArr[7]-stationTimeArr[2])+"");
+                                textView9.setText((stationTimeArr[8]-stationTimeArr[2])+"");
+                                textView10.setText((stationTimeArr[9]-stationTimeArr[2])+"");
+                                textView11.setText((stationTimeArr[10]-stationTimeArr[2])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[2])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[2])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[2])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[2])+"");
+                            } else {
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText("곧 도착");
+                                textView4.setText((stationTimeArr[3]-stationTimeArr[2])+"");
+                                textView5.setText((stationTimeArr[4]-stationTimeArr[2])+"");
+                                textView6.setText((stationTimeArr[5]-stationTimeArr[2])+"");
+                                textView7.setText((stationTimeArr[6]-stationTimeArr[2])+"");
+                                textView8.setText((stationTimeArr[7]-stationTimeArr[2])+"");
+                                textView9.setText((stationTimeArr[8]-stationTimeArr[2])+"");
+                                textView10.setText((stationTimeArr[9]-stationTimeArr[2])+"");
+                                textView11.setText((stationTimeArr[10]-stationTimeArr[2])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[2])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[2])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[2])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[2])+"");
+                            }
+                        }
+                        else if (visited[3]) {
+                            textView.setText("학생생활관 -> 농대");
+                            long min = 1000;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                            for (int i=0; i<startTimeArr.length; i++) {
+                                String reqDateStr = startTimeArr[i];
+                                try{
+                                    Date reqDate = dateFormat.parse(reqDateStr);
+                                    long reqDateTime = reqDate.getTime();
+                                    //현재시간을 요청시간의 형태로 format 후 time 가져오기
+                                    currentTime = dateFormat.parse(dateFormat.format(currentTime));
+                                    long curDateTime = currentTime.getTime();
+                                    //분으로 표현
+                                    long gap = (reqDateTime - curDateTime) / 60000;
+
+                                    if(min>gap && gap>0) {
+                                        min = gap;
+                                    }
+                                } catch(ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                            long setTime = min; //setTime은 다음 출발시간까지 남은 시간
+                            if(visited2[3]) {
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView5.setText((stationTimeArr[4]-stationTimeArr[3])+"");
+                                textView6.setText((stationTimeArr[5]-stationTimeArr[3])+"");
+                                textView7.setText((stationTimeArr[6]-stationTimeArr[3])+"");
+                                textView8.setText((stationTimeArr[7]-stationTimeArr[3])+"");
+                                textView9.setText((stationTimeArr[8]-stationTimeArr[3])+"");
+                                textView10.setText((stationTimeArr[9]-stationTimeArr[3])+"");
+                                textView11.setText((stationTimeArr[10]-stationTimeArr[3])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[3])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[3])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[3])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[3])+"");
+                            } else {
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText("곧 도착");
+                                textView5.setText((stationTimeArr[4]-stationTimeArr[3])+"");
+                                textView6.setText((stationTimeArr[5]-stationTimeArr[3])+"");
+                                textView7.setText((stationTimeArr[6]-stationTimeArr[3])+"");
+                                textView8.setText((stationTimeArr[7]-stationTimeArr[3])+"");
+                                textView9.setText((stationTimeArr[8]-stationTimeArr[3])+"");
+                                textView10.setText((stationTimeArr[9]-stationTimeArr[3])+"");
+                                textView11.setText((stationTimeArr[10]-stationTimeArr[3])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[3])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[3])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[3])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[3])+"");
+                            }
+                        }
+                        else if (visited[4]) {
+                            textView.setText("농대 -> 동문");
+                            long min = 1000;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                            for (int i=0; i<startTimeArr.length; i++) {
+                                String reqDateStr = startTimeArr[i];
+                                try{
+                                    Date reqDate = dateFormat.parse(reqDateStr);
+                                    long reqDateTime = reqDate.getTime();
+                                    //현재시간을 요청시간의 형태로 format 후 time 가져오기
+                                    currentTime = dateFormat.parse(dateFormat.format(currentTime));
+                                    long curDateTime = currentTime.getTime();
+                                    //분으로 표현
+                                    long gap = (reqDateTime - curDateTime) / 60000;
+
+                                    if(min>gap && gap>0) {
+                                        min = gap;
+                                    }
+                                } catch(ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                            long setTime = min; //setTime은 다음 출발시간까지 남은 시간
+                            if(visited2[4]) {
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView6.setText((stationTimeArr[5]-stationTimeArr[4])+"");
+                                textView7.setText((stationTimeArr[6]-stationTimeArr[4])+"");
+                                textView8.setText((stationTimeArr[7]-stationTimeArr[4])+"");
+                                textView9.setText((stationTimeArr[8]-stationTimeArr[4])+"");
+                                textView10.setText((stationTimeArr[9]-stationTimeArr[4])+"");
+                                textView11.setText((stationTimeArr[10]-stationTimeArr[4])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[4])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[4])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[4])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[4])+"");
+                            } else {
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText("곧 도착");
+                                textView6.setText((stationTimeArr[5]-stationTimeArr[4])+"");
+                                textView7.setText((stationTimeArr[6]-stationTimeArr[4])+"");
+                                textView8.setText((stationTimeArr[7]-stationTimeArr[4])+"");
+                                textView9.setText((stationTimeArr[8]-stationTimeArr[4])+"");
+                                textView10.setText((stationTimeArr[9]-stationTimeArr[4])+"");
+                                textView11.setText((stationTimeArr[10]-stationTimeArr[4])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[4])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[4])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[4])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[4])+"");
+                            }
+                        }
+                        else if (visited[5]) {
+                            textView.setText("동문 -> 농대");
+                            long min = 1000;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                            for (int i=0; i<startTimeArr.length; i++) {
+                                String reqDateStr = startTimeArr[i];
+                                try{
+                                    Date reqDate = dateFormat.parse(reqDateStr);
+                                    long reqDateTime = reqDate.getTime();
+                                    //현재시간을 요청시간의 형태로 format 후 time 가져오기
+                                    currentTime = dateFormat.parse(dateFormat.format(currentTime));
+                                    long curDateTime = currentTime.getTime();
+                                    //분으로 표현
+                                    long gap = (reqDateTime - curDateTime) / 60000;
+
+                                    if(min>gap && gap>0) {
+                                        min = gap;
+                                    }
+                                } catch(ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                            long setTime = min; //setTime은 다음 출발시간까지 남은 시간
+                            if(visited2[5]) {
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView7.setText((stationTimeArr[6]-stationTimeArr[5])+"");
+                                textView8.setText((stationTimeArr[7]-stationTimeArr[5])+"");
+                                textView9.setText((stationTimeArr[8]-stationTimeArr[5])+"");
+                                textView10.setText((stationTimeArr[9]-stationTimeArr[5])+"");
+                                textView11.setText((stationTimeArr[10]-stationTimeArr[5])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[5])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[5])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[5])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[5])+"");
+                            } else {
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText("곧 도착");
+                                textView7.setText((stationTimeArr[6]-stationTimeArr[5])+"");
+                                textView8.setText((stationTimeArr[7]-stationTimeArr[5])+"");
+                                textView9.setText((stationTimeArr[8]-stationTimeArr[5])+"");
+                                textView10.setText((stationTimeArr[9]-stationTimeArr[5])+"");
+                                textView11.setText((stationTimeArr[10]-stationTimeArr[5])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[5])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[5])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[5])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[5])+"");
+                            }
+                        }
+                        else if (visited[6]) {
+                            textView.setText("농대 -> 도서관");
+                            long min = 1000;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                            for (int i=0; i<startTimeArr.length; i++) {
+                                String reqDateStr = startTimeArr[i];
+                                try{
+                                    Date reqDate = dateFormat.parse(reqDateStr);
+                                    long reqDateTime = reqDate.getTime();
+                                    //현재시간을 요청시간의 형태로 format 후 time 가져오기
+                                    currentTime = dateFormat.parse(dateFormat.format(currentTime));
+                                    long curDateTime = currentTime.getTime();
+                                    //분으로 표현
+                                    long gap = (reqDateTime - curDateTime) / 60000;
+
+                                    if(min>gap && gap>0) {
+                                        min = gap;
+                                    }
+                                } catch(ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                            long setTime = min; //setTime은 다음 출발시간까지 남은 시간
+                            if(visited2[6]) {
+                                textView7.setText((setTime+stationTimeArr[6])+"");
+
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView8.setText((stationTimeArr[7]-stationTimeArr[6])+"");
+                                textView9.setText((stationTimeArr[8]-stationTimeArr[6])+"");
+                                textView10.setText((stationTimeArr[9]-stationTimeArr[6])+"");
+                                textView11.setText((stationTimeArr[10]-stationTimeArr[6])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[6])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[6])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[6])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[6])+"");
+                            } else {
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView7.setText("곧 도착");
+                                textView8.setText((stationTimeArr[7]-stationTimeArr[6])+"");
+                                textView9.setText((stationTimeArr[8]-stationTimeArr[6])+"");
+                                textView10.setText((stationTimeArr[9]-stationTimeArr[6])+"");
+                                textView11.setText((stationTimeArr[10]-stationTimeArr[6])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[6])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[6])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[6])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[6])+"");
+                            }
+                        }
+                        else if (visited[7]) {
+                            textView.setText("도서관 -> 예술대");
+                            long min = 1000;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                            for (int i=0; i<startTimeArr.length; i++) {
+                                String reqDateStr = startTimeArr[i];
+                                try{
+                                    Date reqDate = dateFormat.parse(reqDateStr);
+                                    long reqDateTime = reqDate.getTime();
+                                    //현재시간을 요청시간의 형태로 format 후 time 가져오기
+                                    currentTime = dateFormat.parse(dateFormat.format(currentTime));
+                                    long curDateTime = currentTime.getTime();
+                                    //분으로 표현
+                                    long gap = (reqDateTime - curDateTime) / 60000;
+
+                                    if(min>gap && gap>0) {
+                                        min = gap;
+                                    }
+                                } catch(ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                            long setTime = min; //setTime은 다음 출발시간까지 남은 시간
+                            if(visited2[7]) {
+                                textView8.setText((setTime+stationTimeArr[7])+"");
+
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView7.setText((setTime+stationTimeArr[6])+"");
+                                textView9.setText((stationTimeArr[8]-stationTimeArr[7])+"");
+                                textView10.setText((stationTimeArr[9]-stationTimeArr[7])+"");
+                                textView11.setText((stationTimeArr[10]-stationTimeArr[7])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[7])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[7])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[7])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[7])+"");
+                            } else {
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView7.setText((setTime+stationTimeArr[6])+"");
+                                textView8.setText("곧 도착");
+                                textView9.setText((stationTimeArr[8]-stationTimeArr[7])+"");
+                                textView10.setText((stationTimeArr[9]-stationTimeArr[7])+"");
+                                textView11.setText((stationTimeArr[10]-stationTimeArr[7])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[7])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[7])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[7])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[7])+"");
+                            }
+                        }
+                        else if (visited[8]) {
+                            textView.setText("예술대 -> 음악2");
+                            long min = 1000;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                            for (int i=0; i<startTimeArr.length; i++) {
+                                String reqDateStr = startTimeArr[i];
+                                try{
+                                    Date reqDate = dateFormat.parse(reqDateStr);
+                                    long reqDateTime = reqDate.getTime();
+                                    //현재시간을 요청시간의 형태로 format 후 time 가져오기
+                                    currentTime = dateFormat.parse(dateFormat.format(currentTime));
+                                    long curDateTime = currentTime.getTime();
+                                    //분으로 표현
+                                    long gap = (reqDateTime - curDateTime) / 60000;
+
+                                    if(min>gap && gap>0) {
+                                        min = gap;
+                                    }
+                                } catch(ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                            long setTime = min; //setTime은 다음 출발시간까지 남은 시간
+                            if(visited2[8]) {
+                                textView9.setText((setTime+stationTimeArr[8])+"");
+
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView7.setText((setTime+stationTimeArr[6])+"");
+                                textView8.setText((setTime+stationTimeArr[7])+"");
+                                textView10.setText((stationTimeArr[9]-stationTimeArr[8])+"");
+                                textView11.setText((stationTimeArr[10]-stationTimeArr[8])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[8])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[8])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[8])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[8])+"");
+                            } else {
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView7.setText((setTime+stationTimeArr[6])+"");
+                                textView8.setText((setTime+stationTimeArr[7])+"");
+                                textView9.setText("곧 도착");
+                                textView10.setText((stationTimeArr[9]-stationTimeArr[8])+"");
+                                textView11.setText((stationTimeArr[10]-stationTimeArr[8])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[8])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[8])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[8])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[8])+"");
+                            }
+                        }
+                        else if (visited[9]) {
+                            textView.setText("음악2 -> 공동동물실습");
+                            long min = 1000;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                            for (int i=0; i<startTimeArr.length; i++) {
+                                String reqDateStr = startTimeArr[i];
+                                try{
+                                    Date reqDate = dateFormat.parse(reqDateStr);
+                                    long reqDateTime = reqDate.getTime();
+                                    //현재시간을 요청시간의 형태로 format 후 time 가져오기
+                                    currentTime = dateFormat.parse(dateFormat.format(currentTime));
+                                    long curDateTime = currentTime.getTime();
+                                    //분으로 표현
+                                    long gap = (reqDateTime - curDateTime) / 60000;
+
+                                    if(min>gap && gap>0) {
+                                        min = gap;
+                                    }
+                                } catch(ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                            long setTime = min; //setTime은 다음 출발시간까지 남은 시간
+                            if(visited2[9]) {
+                                textView10.setText((setTime+stationTimeArr[9])+"");
+
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView7.setText((setTime+stationTimeArr[6])+"");
+                                textView8.setText((setTime+stationTimeArr[7])+"");
+                                textView9.setText((setTime+stationTimeArr[8])+"");
+                                textView11.setText((stationTimeArr[10]-stationTimeArr[9])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[9])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[9])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[9])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[9])+"");
+                            } else {
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView7.setText((setTime+stationTimeArr[6])+"");
+                                textView8.setText((setTime+stationTimeArr[7])+"");
+                                textView9.setText((setTime+stationTimeArr[8])+"");
+                                textView10.setText("곧 도착");
+                                textView11.setText((stationTimeArr[10]-stationTimeArr[9])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[9])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[9])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[9])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[9])+"");
+                            }
+                        }
+                        else if (visited[10]) {
+                            textView.setText("공동동물실습 -> 체육관");
+                            long min = 1000;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                            for (int i=0; i<startTimeArr.length; i++) {
+                                String reqDateStr = startTimeArr[i];
+                                try{
+                                    Date reqDate = dateFormat.parse(reqDateStr);
+                                    long reqDateTime = reqDate.getTime();
+                                    //현재시간을 요청시간의 형태로 format 후 time 가져오기
+                                    currentTime = dateFormat.parse(dateFormat.format(currentTime));
+                                    long curDateTime = currentTime.getTime();
+                                    //분으로 표현
+                                    long gap = (reqDateTime - curDateTime) / 60000;
+
+                                    if(min>gap && gap>0) {
+                                        min = gap;
+                                    }
+                                } catch(ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                            long setTime = min; //setTime은 다음 출발시간까지 남은 시간
+                            if(visited2[10]) {
+                                textView11.setText((setTime+stationTimeArr[10])+"");
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView7.setText((setTime+stationTimeArr[6])+"");
+                                textView8.setText((setTime+stationTimeArr[7])+"");
+                                textView9.setText((setTime+stationTimeArr[8])+"");
+                                textView10.setText((setTime+stationTimeArr[9])+"");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[10])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[10])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[10])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[10])+"");
+                            } else {
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView7.setText((setTime+stationTimeArr[6])+"");
+                                textView8.setText((setTime+stationTimeArr[7])+"");
+                                textView9.setText((setTime+stationTimeArr[8])+"");
+                                textView10.setText((setTime+stationTimeArr[9])+"");
+                                textView11.setText("곧 도착");
+                                textView12.setText((stationTimeArr[11]-stationTimeArr[10])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[10])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[10])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[10])+"");
+                            }
+                        }
+                        else if (visited[11]) {
+                            textView.setText("체육관 -> 서문");
+                            long min = 1000;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                            for (int i=0; i<startTimeArr.length; i++) {
+                                String reqDateStr = startTimeArr[i];
+                                try{
+                                    Date reqDate = dateFormat.parse(reqDateStr);
+                                    long reqDateTime = reqDate.getTime();
+                                    //현재시간을 요청시간의 형태로 format 후 time 가져오기
+                                    currentTime = dateFormat.parse(dateFormat.format(currentTime));
+                                    long curDateTime = currentTime.getTime();
+                                    //분으로 표현
+                                    long gap = (reqDateTime - curDateTime) / 60000;
+
+                                    if(min>gap && gap>0) {
+                                        min = gap;
+                                    }
+                                } catch(ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                            long setTime = min; //setTime은 다음 출발시간까지 남은 시간
+                            if(visited2[11]) {
+                                textView12.setText((setTime+stationTimeArr[11])+"");
+
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView7.setText((setTime+stationTimeArr[6])+"");
+                                textView8.setText((setTime+stationTimeArr[7])+"");
+                                textView9.setText((setTime+stationTimeArr[8])+"");
+                                textView10.setText((setTime+stationTimeArr[9])+"");
+                                textView11.setText((setTime+stationTimeArr[10])+"");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[11])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[11])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[11])+"");
+                            } else {
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView7.setText((setTime+stationTimeArr[6])+"");
+                                textView8.setText((setTime+stationTimeArr[7])+"");
+                                textView9.setText((setTime+stationTimeArr[8])+"");
+                                textView10.setText((setTime+stationTimeArr[9])+"");
+                                textView11.setText((setTime+stationTimeArr[10])+"");
+                                textView12.setText("곧 도착");
+                                textView13.setText((stationTimeArr[12]-stationTimeArr[11])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[11])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[11])+"");
+                            }
+                        }
+                        else if (visited[12]) {
+                            textView.setText("서문 -> 사과대");
+                            long min = 1000;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                            for (int i=0; i<startTimeArr.length; i++) {
+                                String reqDateStr = startTimeArr[i];
+                                try{
+                                    Date reqDate = dateFormat.parse(reqDateStr);
+                                    long reqDateTime = reqDate.getTime();
+                                    //현재시간을 요청시간의 형태로 format 후 time 가져오기
+                                    currentTime = dateFormat.parse(dateFormat.format(currentTime));
+                                    long curDateTime = currentTime.getTime();
+                                    //분으로 표현
+                                    long gap = (reqDateTime - curDateTime) / 60000;
+
+                                    if(min>gap && gap>0) {
+                                        min = gap;
+                                    }
+                                } catch(ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                            long setTime = min; //setTime은 다음 출발시간까지 남은 시간
+                            if(visited2[12]) {
+                                textView13.setText((setTime+stationTimeArr[12])+"");
+
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView7.setText((setTime+stationTimeArr[6])+"");
+                                textView8.setText((setTime+stationTimeArr[7])+"");
+                                textView9.setText((setTime+stationTimeArr[8])+"");
+                                textView10.setText((setTime+stationTimeArr[9])+"");
+                                textView11.setText((setTime+stationTimeArr[10])+"");
+                                textView12.setText((setTime+stationTimeArr[11])+"");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[12])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[12])+"");
+                            } else {
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView7.setText((setTime+stationTimeArr[6])+"");
+                                textView8.setText((setTime+stationTimeArr[7])+"");
+                                textView9.setText((setTime+stationTimeArr[8])+"");
+                                textView10.setText((setTime+stationTimeArr[9])+"");
+                                textView11.setText((setTime+stationTimeArr[10])+"");
+                                textView12.setText((setTime+stationTimeArr[11])+"");
+                                textView13.setText("곧 도착");
+                                textView14.setText((stationTimeArr[13]-stationTimeArr[12])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[12])+"");
+                            }
+                        }
+                        else if (visited[13]) {
+                            textView.setText("사과대 -> 산학연");
+                            long min = 1000;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                            for (int i=0; i<startTimeArr.length; i++) {
+                                String reqDateStr = startTimeArr[i];
+                                try{
+                                    Date reqDate = dateFormat.parse(reqDateStr);
+                                    long reqDateTime = reqDate.getTime();
+                                    //현재시간을 요청시간의 형태로 format 후 time 가져오기
+                                    currentTime = dateFormat.parse(dateFormat.format(currentTime));
+                                    long curDateTime = currentTime.getTime();
+                                    //분으로 표현
+                                    long gap = (reqDateTime - curDateTime) / 60000;
+
+                                    if(min>gap && gap>0) {
+                                        min = gap;
+                                    }
+                                } catch(ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                            long setTime = min; //setTime은 다음 출발시간까지 남은 시간
+                            if(visited2[13]) {
+                                textView14.setText((setTime+stationTimeArr[13])+"");
+
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView7.setText((setTime+stationTimeArr[6])+"");
+                                textView8.setText((setTime+stationTimeArr[7])+"");
+                                textView9.setText((setTime+stationTimeArr[8])+"");
+                                textView10.setText((setTime+stationTimeArr[9])+"");
+                                textView11.setText((setTime+stationTimeArr[10])+"");
+                                textView12.setText((setTime+stationTimeArr[11])+"");
+                                textView13.setText((setTime+stationTimeArr[12])+"");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[13])+"");
+                            } else {
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView7.setText((setTime+stationTimeArr[6])+"");
+                                textView8.setText((setTime+stationTimeArr[7])+"");
+                                textView9.setText((setTime+stationTimeArr[8])+"");
+                                textView10.setText((setTime+stationTimeArr[9])+"");
+                                textView11.setText((setTime+stationTimeArr[10])+"");
+                                textView12.setText((setTime+stationTimeArr[11])+"");
+                                textView13.setText((setTime+stationTimeArr[12])+"");
+                                textView14.setText("곧 도착");
+                                textView15.setText((stationTimeArr[14]-stationTimeArr[13])+"");
+                            }
+                        }
+                        else if (visited[14]) {
+                            textView.setText("산학연 -> 정심화국제문화회관");
+                            long min = 1000;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                            for (int i=0; i<startTimeArr.length; i++) {
+                                String reqDateStr = startTimeArr[i];
+                                try{
+                                    Date reqDate = dateFormat.parse(reqDateStr);
+                                    long reqDateTime = reqDate.getTime();
+                                    //현재시간을 요청시간의 형태로 format 후 time 가져오기
+                                    currentTime = dateFormat.parse(dateFormat.format(currentTime));
+                                    long curDateTime = currentTime.getTime();
+                                    //분으로 표현
+                                    long gap = (reqDateTime - curDateTime) / 60000;
+
+                                    if(min>gap && gap>0) {
+                                        min = gap;
+                                    }
+                                } catch(ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                            long setTime = min; //setTime은 다음 출발시간까지 남은 시간
+                            if(visited2[14]) {
+                                textView15.setText((setTime+stationTimeArr[14])+"");
+
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView7.setText((setTime+stationTimeArr[6])+"");
+                                textView8.setText((setTime+stationTimeArr[7])+"");
+                                textView9.setText((setTime+stationTimeArr[8])+"");
+                                textView10.setText((setTime+stationTimeArr[9])+"");
+                                textView11.setText((setTime+stationTimeArr[10])+"");
+                                textView12.setText((setTime+stationTimeArr[11])+"");
+                                textView13.setText((setTime+stationTimeArr[12])+"");
+                                textView14.setText((setTime+stationTimeArr[13])+"");
+                            } else {
+                                textView1.setText(setTime+"");
+                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                textView6.setText((setTime+stationTimeArr[5])+"");
+                                textView7.setText((setTime+stationTimeArr[6])+"");
+                                textView8.setText((setTime+stationTimeArr[7])+"");
+                                textView9.setText((setTime+stationTimeArr[8])+"");
+                                textView10.setText((setTime+stationTimeArr[9])+"");
+                                textView11.setText((setTime+stationTimeArr[10])+"");
+                                textView12.setText((setTime+stationTimeArr[11])+"");
+                                textView13.setText((setTime+stationTimeArr[12])+"");
+                                textView14.setText((setTime+stationTimeArr[13])+"");
+                                textView15.setText("곧 도착");
+                            }
+                        }
+                        else {
+                            textView.setText("다음 버스 대기 중");
+                            long min = 1000;
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                            for (int i=0; i<startTimeArr.length; i++) {
+                                String reqDateStr = startTimeArr[i];
+                                try{
+                                    Date reqDate = dateFormat.parse(reqDateStr);
+                                    long reqDateTime = reqDate.getTime();
+                                    //현재시간을 요청시간의 형태로 format 후 time 가져오기
+                                    currentTime = dateFormat.parse(dateFormat.format(currentTime));
+                                    long curDateTime = currentTime.getTime();
+                                    //분으로 표현
+                                    long gap = (reqDateTime - curDateTime) / 60000;
+
+                                    if(min>gap && gap>0) {
+                                        min = gap;
+                                    }
+                                } catch(ParseException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                            long setTime = min; //setTime은 다음 출발시간까지 남은 시간
+                            textView1.setText(setTime+"");
+                            textView2.setText((setTime+stationTimeArr[1])+"");
+                            textView3.setText((setTime+stationTimeArr[2])+"");
+                            textView4.setText((setTime+stationTimeArr[3])+"");
+                            textView5.setText((setTime+stationTimeArr[4])+"");
+                            textView6.setText((setTime+stationTimeArr[5])+"");
+                            textView7.setText((setTime+stationTimeArr[6])+"");
+                            textView8.setText((setTime+stationTimeArr[7])+"");
+                            textView9.setText((setTime+stationTimeArr[8])+"");
+                            textView10.setText((setTime+stationTimeArr[9])+"");
+                            textView11.setText((setTime+stationTimeArr[10])+"");
+                            textView12.setText((setTime+stationTimeArr[11])+"");
+                            textView13.setText((setTime+stationTimeArr[12])+"");
+                            textView14.setText((setTime+stationTimeArr[13])+"");
+                            textView15.setText((setTime+stationTimeArr[14])+"");
+                        }
                     }
                 }
             }
@@ -628,6 +1566,22 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                     visited[12] = (boolean) snapshot.child("station13").child("visit").getValue();
                     visited[13] = (boolean) snapshot.child("station14").child("visit").getValue();
                     visited[14] = (boolean) snapshot.child("station15").child("visit").getValue();
+
+                    visited2[0] = (boolean) snapshot.child("station1").child("passed").getValue();
+                    visited2[1] = (boolean) snapshot.child("station2").child("passed").getValue();
+                    visited2[2] = (boolean) snapshot.child("station3").child("passed").getValue();
+                    visited2[3] = (boolean) snapshot.child("station4").child("passed").getValue();
+                    visited2[4] = (boolean) snapshot.child("station5").child("passed").getValue();
+                    visited2[5] = (boolean) snapshot.child("station6").child("passed").getValue();
+                    visited2[6] = (boolean) snapshot.child("station7").child("passed").getValue();
+                    visited2[7] = (boolean) snapshot.child("station8").child("passed").getValue();
+                    visited2[8] = (boolean) snapshot.child("station9").child("passed").getValue();
+                    visited2[9] = (boolean) snapshot.child("station10").child("passed").getValue();
+                    visited2[10] = (boolean) snapshot.child("station11").child("passed").getValue();
+                    visited2[11] = (boolean) snapshot.child("station12").child("passed").getValue();
+                    visited2[12] = (boolean) snapshot.child("station13").child("passed").getValue();
+                    visited2[13] = (boolean) snapshot.child("station14").child("passed").getValue();
+                    visited2[14] = (boolean) snapshot.child("station15").child("passed").getValue();
                 }
             }
 
