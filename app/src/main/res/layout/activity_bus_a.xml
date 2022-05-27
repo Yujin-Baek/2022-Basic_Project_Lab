@@ -12,34 +12,43 @@
             android:layout_height="match_parent"
             android:name="com.google.android.gms.maps.SupportMapFragment" />
 
-    <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/switchToB"
-            android:padding="0dp"
-            android:src="@drawable/a_button_small"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="10dp" />
-
-    <Button
-            android:text="충남대학교로 이동"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#ffffff"
-            android:layout_marginTop="100dp"
-            android:layout_marginLeft="10dp"
-            android:backgroundTint="@color/cnu_color"
-            android:id="@+id/moveToCNU"/>
-
     <TextView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="97dp"
             android:background="#ffffff"
             android:textSize="24dp"
             android:textColor="#000000"
-            android:layout_gravity="center|bottom"
-            android:text="버스 타자"
+            android:layout_gravity="bottom"
+            android:text="잠시만 기다려주세요.."
             android:id="@+id/textView"/>
+
+    <ImageButton
+            android:layout_width="143dp"
+            android:layout_height="60dp"
+            android:id="@+id/switchToA"
+            android:padding="0dp"
+            android:src="@drawable/a_button"
+            android:background="#ffffff"
+            android:layout_gravity="left|bottom"/>
+
+    <ImageButton
+            android:layout_width="130dp"
+            android:layout_height="60dp"
+            android:src="@drawable/move_to_cnu"
+            android:layout_gravity="center|bottom"
+            android:background="#ffffff"
+            android:id="@+id/moveToCNU"/>
+
+    <ImageButton
+            android:layout_width="143dp"
+            android:layout_height="60dp"
+            android:id="@+id/switchToB"
+            android:padding="0dp"
+            android:src="@drawable/b_button"
+            android:background="#ffffff"
+            android:layout_gravity="right|bottom"/>
+
+
 
 
 </FrameLayout>

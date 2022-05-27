@@ -11,22 +11,29 @@
             android:name="com.google.android.gms.maps.SupportMapFragment" />
 
     <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="143dp"
+            android:layout_height="60dp"
             android:id="@+id/switchToA"
             android:padding="0dp"
-            android:src="@drawable/b_button_small"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="10dp" />
+            android:src="@drawable/a_button"
+            android:background="#ffffff"
+            android:layout_gravity="left|bottom"/>
 
-    <Button
-            android:text="충남대학교로 이동"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#ffffff"
-            android:layout_marginTop="100dp"
-            android:layout_marginLeft="10dp"
-            android:backgroundTint="@color/cnu_color"
+    <ImageButton
+            android:layout_width="130dp"
+            android:layout_height="60dp"
+            android:src="@drawable/move_to_cnu"
+            android:layout_gravity="center|bottom"
+            android:background="#ffffff"
             android:id="@+id/moveToCNU"/>
+
+    <ImageButton
+            android:layout_width="143dp"
+            android:layout_height="60dp"
+            android:id="@+id/switchToB"
+            android:padding="0dp"
+            android:src="@drawable/b_button"
+            android:background="#ffffff"
+            android:layout_gravity="right|bottom"/>
 
 </FrameLayout>

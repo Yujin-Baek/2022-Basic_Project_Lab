@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="kr.ac.cnu.computer.googlemaptest">
+          xmlns:tools="http://schemas.android.com/tools" package="kr.ac.cnu.computer.googlemaptest">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -18,13 +18,15 @@
                 android:name="com.google.android.geo.API_KEY"
                 android:value="AIzaSyD6WWrKLO0LqB4BO8mf5AsQVCDxn9G5kNc" />
 
-        <activity android:name=".ActivityForBusA"
+        <activity android:name="splashActivity"
         >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".ActivityForBusA">
         </activity>
         <activity android:name=".ActivityForBusB">
         </activity>
