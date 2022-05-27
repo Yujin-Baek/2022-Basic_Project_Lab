@@ -1,34 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools" package="kr.ac.cnu.computer.googlemaptest">
+          package="kr.ac.cnu.computer.buslocation">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
 
     <application
             android:allowBackup="true"
-            android:icon="@mipmap/cnu_bus3"
+            android:icon="@mipmap/cnu_bus_loc"
             android:label="@string/app_name"
-            android:roundIcon="@mipmap/cnu_bus3"
+            android:roundIcon="@mipmap/cnu_bus_loc"
             android:supportsRtl="true"
-            android:theme="@style/Theme.GoogleMapTest">
+            android:theme="@style/Theme.BusLocation">
 
         <meta-data
                 android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyD6WWrKLO0LqB4BO8mf5AsQVCDxn9G5kNc" />
+                android:value="AIzaSyD6WWrKLO0LqB4BO8mf5AsQVCDxn9G5kNc"/>
 
-        <activity android:name="splashActivity"
-        >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity android:name=".ActivityForBusA">
-        </activity>
-        <activity android:name=".ActivityForBusB">
         </activity>
     </application>
 

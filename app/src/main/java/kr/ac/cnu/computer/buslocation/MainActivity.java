@@ -1,5 +1,10 @@
 package kr.ac.cnu.computer.buslocation;
 
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Handler;
+import android.os.Message;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,10 +34,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.*;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Date;
 import java.util.List;
 
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     DatabaseReference busLocation = mDatabase.child("location");
+    DatabaseReference busA = mDatabase.child("busA");
 
     private GoogleMap map;
 
@@ -63,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION};
 
+    public final static double AVERAGE_RADIUS_OF_EARTH_KM = 6371;
+
     Location mCurrentLocation;
     LatLng currentPosition;
 
@@ -70,6 +78,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private LocationRequest locationRequest;
     private Location location;
     private boolean doesSetCurrentLocation = false;
+
+    private boolean[] visited = new boolean[15];
+    private boolean[] visited2 = new boolean[15];
+    private boolean running = false;
+    private boolean lastStop = false;
 
     private View mLayout; // Snackbar 사용하기 위해서는 View가 필요합니다.
 
@@ -127,80 +140,238 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLng numberFifteen = new LatLng(36.365987855484114, 127.3453100226298);
 
 
+        //첫번째 작업 : 맵을 잇기 위한 새로운 좌표 추가
+        LatLng librery = new LatLng(36.369316, 127.345914);
+
+        LatLng east_of_lib_1_intersection1= new LatLng(36.36978364, 127.34713638);
+
+        //기숙사 방향 좌표들
+        LatLng east_of_lib_2_northofInt1= new LatLng(36.37124332, 127.34732369);
+        LatLng east_of_lib_3_northofInt2= new LatLng(36.37142844,127.34732399);
+        LatLng east_of_lib_4_northofInt3= new LatLng(36.37157123,127.34723114);
+        LatLng north_of_lib= new LatLng(36.37275383,127.34604556);
+
+
+        //5 6 7 노선쪽 좌표
+        LatLng east_of_lib_6= new LatLng(36.36995399,127.34767012);
+        LatLng east_of_lib_7= new LatLng(36.37019933,127.34800274);
+        LatLng east_of_lib_8= new LatLng(36.37056608,127.34825481);
+        LatLng east_of_lib_9= new LatLng(36.3706499,127.34842395);
+        LatLng east_of_lib_10= new LatLng(36.37062608,127.34868098);
+        LatLng east_of_lib_11= new LatLng(36.37053807,127.34882131);
+        LatLng east_of_lib_12= new LatLng(36.36915108,127.34961868);
+        LatLng east_of_lib_13= new LatLng(36.36902125,127.34968559);
+        LatLng east_of_lib_14= new LatLng(36.36893412,127.34983338);
+        LatLng east_of_lib_15= new LatLng(36.36891032,127.35002309);
+        LatLng east_of_lib_16= new LatLng(36.36898677,127.3501816);
+        LatLng east_of_lib_17= new LatLng(36.36911151,127.35035572);
+        LatLng east_of_lib_18= new LatLng(36.36927499,127.35063115);
+        LatLng east_of_lib_19= new LatLng(36.36940493,127.35085204);
+        LatLng east_of_lib_20= new LatLng(36.36944893,127.35094559);
+        LatLng east_of_lib_21= new LatLng(36.3694859,127.35098716);
+        LatLng east_of_lib_22= new LatLng(36.36946077,127.35117682);
+
+        LatLng east_of_lib_intersection_to_6and7= new LatLng(36.36883054,127.35235855);
+
+        LatLng east_of_lib_24= new LatLng(36.36872541,127.35229934);
+        LatLng east_of_lib_25= new LatLng(36.36894547,127.35245851);
+        LatLng east_of_lib_26= new LatLng(36.36921879,127.35189782);
+        LatLng east_of_lib_27= new LatLng(36.36911765,127.35183482);
+
+        //도서관 서쪽으로 가기 시작하는 코스
+        LatLng west_of_lib_1= new LatLng(36.37038209,127.34423234);
+        LatLng west_of_lib_2= new LatLng(36.37047777,127.3431969);
+
+        LatLng west_of_lib_intersection= new LatLng(36.37043426,127.34291101);
+
+        //서문 방향 노선 코스
+        LatLng west_of_lib_3= new LatLng(36.36984855,127.34101124);
+        LatLng west_of_lib_4= new LatLng(36.36888636,127.34152086);
+        LatLng west_of_lib_5= new LatLng(36.36783805,127.34147325);
+        LatLng west_of_lib_6= new LatLng(36.36616327,127.34396786);
+
+        //서북쪽 노선
+        LatLng west_of_lib_7 = new LatLng(36.37137671,127.34289062);
+        LatLng west_of_lib_8= new LatLng(36.37594242,127.34441761);
+        LatLng west_of_lib_9= new LatLng(36.37612673,127.34443543);
+        LatLng west_of_lib_10= new LatLng(36.37629159,127.34443011);
+        LatLng west_of_lib_11= new LatLng(36.3763821,127.34433875);
+
         MarkerOptions stationOne = new MarkerOptions();
         stationOne.position(numberOne)
-                .title("①정심화국제문화회관")
-                .snippet("null");
+                .title("①정심화국제문화회관");
 
         MarkerOptions stationTwo = new MarkerOptions();
         stationTwo.position(numberTwo)
-                .title("②경상대학 앞")
-                .snippet("null");
+                .title("②경상대학 앞");
 
         MarkerOptions stationThree = new MarkerOptions();
         stationThree.position(numberThree)
-                .title("③도서관 앞(농대방향)")
-                .snippet("null");
+                .title("③도서관 앞(농대방향)");
 
         MarkerOptions stationFour = new MarkerOptions();
         stationFour.position(numberFour)
-                .title("④학생생활관3거리")
-                .snippet("null");
+                .title("④학생생활관3거리");
 
         MarkerOptions stationFive = new MarkerOptions();
         stationFive.position(numberFive)
-                .title("⑤농업생명과학대학 앞")
-                .snippet("null");
+                .title("⑤농업생명과학대학 앞");
 
         MarkerOptions stationSix = new MarkerOptions();
         stationSix.position(numberSix)
-                .title("⑥동문주차장")
-                .snippet("null");
+                .title("⑥동문주차장");
 
         MarkerOptions stationSeven = new MarkerOptions();
         stationSeven.position(numberSeven)
-                .title("⑦농업생명과학대학 앞")
-                .snippet("null");
+                .title("⑦농업생명과학대학 앞");
 
         MarkerOptions stationEight = new MarkerOptions();
         stationEight.position(numberEight)
-                .title("⑧도서관 앞(도서관 삼거리 방향")
-                .snippet("null");
+                .title("⑧도서관 앞(도서관 삼거리 방향");
 
         MarkerOptions stationNine = new MarkerOptions();
         stationNine.position(numberNine)
-                .title("⑨예술대학 앞")
-                .snippet("null");
+                .title("⑨예술대학 앞");
 
         MarkerOptions stationTen = new MarkerOptions();
         stationTen.position(numberTen)
-                .title("⑩음악2호관 앞")
-                .snippet("null");
+                .title("⑩음악2호관 앞");
 
         MarkerOptions stationEleven = new MarkerOptions();
         stationEleven.position(numberEleven)
-                .title("⑪공동동물실험센터 입구(회차)")
-                .snippet("null");
+                .title("⑪공동동물실험센터 입구(회차)");
 
         MarkerOptions stationTwelve = new MarkerOptions();
         stationTwelve.position(numberTwelve)
-                .title("⑫체육관 입구")
-                .snippet("null");
+                .title("⑫체육관 입구");
 
         MarkerOptions stationThirteen = new MarkerOptions();
         stationThirteen.position(numberThirteen)
-                .title("⑬서문(공동실험실습관앞)")
-                .snippet("null");
+                .title("⑬서문(공동실험실습관앞)");
 
         MarkerOptions stationFourteen = new MarkerOptions();
         stationFourteen.position(numberFourteen)
-                .title("⑭사회과학대학 입구(한누리회관 뒤)")
-                .snippet("null");
+                .title("⑭사회과학대학 입구(한누리회관 뒤)");
 
         MarkerOptions stationFifteen = new MarkerOptions();
         stationFifteen.position(numberFifteen)
-                .title("⑮산학연교육연구관 앞")
-                .snippet("null");
+                .title("⑮산학연교육연구관 앞");
+
+        BitmapDrawable bitmapDrawStationOne = (BitmapDrawable) getResources().getDrawable(R.drawable.first_station);
+        Bitmap b1 = bitmapDrawStationOne.getBitmap();
+        stationOne.icon(BitmapDescriptorFactory.fromBitmap(b1));
+
+        BitmapDrawable bitmapDrawStationTwo = (BitmapDrawable) getResources().getDrawable(R.drawable.second_station);
+        Bitmap b2 = bitmapDrawStationTwo.getBitmap();
+        stationTwo.icon(BitmapDescriptorFactory.fromBitmap(b2));
+
+        BitmapDrawable bitmapDrawStationThree = (BitmapDrawable) getResources().getDrawable(R.drawable.third_station);
+        Bitmap b3 = bitmapDrawStationThree.getBitmap();
+        stationThree.icon(BitmapDescriptorFactory.fromBitmap(b3));
+
+        BitmapDrawable bitmapDrawStationFour = (BitmapDrawable) getResources().getDrawable(R.drawable.fourth_station);
+        Bitmap b4 = bitmapDrawStationFour.getBitmap();
+        stationFour.icon(BitmapDescriptorFactory.fromBitmap(b4));
+
+        BitmapDrawable bitmapDrawStationFive = (BitmapDrawable) getResources().getDrawable(R.drawable.fifth_station);
+        Bitmap b5 = bitmapDrawStationFive.getBitmap();
+        stationFive.icon(BitmapDescriptorFactory.fromBitmap(b5));
+
+        BitmapDrawable bitmapDrawStationSix = (BitmapDrawable) getResources().getDrawable(R.drawable.sixth_station);
+        Bitmap b6 = bitmapDrawStationSix.getBitmap();
+        stationSix.icon(BitmapDescriptorFactory.fromBitmap(b6));
+
+        BitmapDrawable bitmapDrawStationSeven = (BitmapDrawable) getResources().getDrawable(R.drawable.seventh_station);
+        Bitmap b7 = bitmapDrawStationSeven.getBitmap();
+        stationSeven.icon(BitmapDescriptorFactory.fromBitmap(b7));
+
+        BitmapDrawable bitmapDrawStationEight = (BitmapDrawable) getResources().getDrawable(R.drawable.eighth_station);
+        Bitmap b8 = bitmapDrawStationEight.getBitmap();
+        stationEight.icon(BitmapDescriptorFactory.fromBitmap(b8));
+
+        BitmapDrawable bitmapDrawStationNine = (BitmapDrawable) getResources().getDrawable(R.drawable.ninth_station);
+        Bitmap b9 = bitmapDrawStationNine.getBitmap();
+        stationNine.icon(BitmapDescriptorFactory.fromBitmap(b9));
+
+        BitmapDrawable bitmapDrawStationTen = (BitmapDrawable) getResources().getDrawable(R.drawable.tenth_station);
+        Bitmap b10 = bitmapDrawStationTen.getBitmap();
+        stationTen.icon(BitmapDescriptorFactory.fromBitmap(b10));
+
+        BitmapDrawable bitmapDrawStationEleven = (BitmapDrawable) getResources().getDrawable(R.drawable.eleventh_station);
+        Bitmap b11 = bitmapDrawStationEleven.getBitmap();
+        stationEleven.icon(BitmapDescriptorFactory.fromBitmap(b11));
+
+        BitmapDrawable bitmapDrawStationTwelve = (BitmapDrawable) getResources().getDrawable(R.drawable.twelfth_station);
+        Bitmap b12 = bitmapDrawStationTwelve.getBitmap();
+        stationTwelve.icon(BitmapDescriptorFactory.fromBitmap(b12));
+
+        BitmapDrawable bitmapDrawStationThirteen = (BitmapDrawable) getResources().getDrawable(R.drawable.thirteenth_station);
+        Bitmap b13 = bitmapDrawStationThirteen.getBitmap();
+        stationThirteen.icon(BitmapDescriptorFactory.fromBitmap(b13));
+
+        BitmapDrawable bitmapDrawStationFourteen = (BitmapDrawable) getResources().getDrawable(R.drawable.fourteenth_station);
+        Bitmap b14 = bitmapDrawStationFourteen.getBitmap();
+        stationFourteen.icon(BitmapDescriptorFactory.fromBitmap(b14));
+
+        BitmapDrawable bitmapDrawStationFifteen = (BitmapDrawable) getResources().getDrawable(R.drawable.fifteenth_station);
+        Bitmap b15 = bitmapDrawStationFifteen.getBitmap();
+        stationFifteen.icon(BitmapDescriptorFactory.fromBitmap(b15));
+
+        // 두번째 작업 polyline 부분 구현 ( 그냥 화면이 켜졌을때 선분이 나타나면 되는 것이라서 상관 없음 )
+        PolylineOptions polylineOptions1 = new PolylineOptions()
+                .add(new LatLng(36.36393623045683, 127.34512288367394),new LatLng(36.36739570866662, 127.34560855449526)
+                        ,new LatLng(36.369316, 127.345914) ,new LatLng(36.36948527558873, 127.34637197830905),new LatLng(36.36978364, 127.34713638)
+                        ,new LatLng(36.37121358, 127.34734004),new LatLng(36.37142844,127.34732399),new LatLng(36.37157123,127.34723114)
+                        ,new LatLng(36.37234435419047, 127.34648149906977),new LatLng(36.37275383,127.34604556))
+                .color(Color.BLUE)
+                .geodesic(true);
+
+        PolylineOptions polylineOptions2 = new PolylineOptions()
+                .add(new LatLng(36.369316, 127.345914), new LatLng(36.37038209,127.34423234),new LatLng(36.370497971570686, 127.34378814811502)
+                        ,new LatLng(36.37047777,127.3431969),new LatLng(36.37040177,127.34292932),new LatLng(36.36984855,127.34101124)
+                        ,new LatLng(36.36888636,127.34152086),new LatLng(36.36783805,127.34147325),new LatLng(36.36714486295813, 127.34252209519627)
+                        ,new LatLng(36.36616327,127.34396786),new LatLng(36.365987855484114, 127.3453100226298))
+                .color(Color.BLUE)
+                .geodesic(true);
+        //서북쪽 노선(인터섹션 좌표를 새로 씀 주의!)
+        PolylineOptions polylineOptions3 = new PolylineOptions()
+                .add(new LatLng(36.37039270,127.34291101),new LatLng(36.37137671,127.34289062),new LatLng(36.37191266851502, 127.34303753992411)
+                        ,new LatLng(36.37432282798491, 127.34388914314896),new LatLng(36.37594242,127.34439761),new LatLng(36.37612673,127.34443543)
+                        ,new LatLng(36.37629159,127.34443011),new LatLng(36.3763821,127.34433875),new LatLng(36.37642789094089, 127.34416989166898))
+                .color(Color.BLUE)
+                .geodesic(true);
+        // 5 6 7 번 노선
+        PolylineOptions polylineOptions4 = new PolylineOptions()
+                .add(new LatLng(36.36978364, 127.34713638),new LatLng(36.36995399,127.34767012),new LatLng(36.37019933,127.34800274)
+                        ,new LatLng(36.37056608,127.34825481),new LatLng(36.3706499,127.34842395),new LatLng(36.37062608,127.34868098)
+                        ,new LatLng(36.37053807,127.34882131),new LatLng(36.36915108,127.34961868),new LatLng(36.36902125,127.34968559)
+                        ,new LatLng(36.36893412,127.34983338),new LatLng(36.36891032,127.35002309),new LatLng(36.36898677,127.3501816)
+                        ,new LatLng(36.36911151,127.35035572),new LatLng(36.36927499,127.35063115),new LatLng(36.36940493,127.35085204)
+                        ,new LatLng(36.36944893,127.35094559),new LatLng(36.3694799,127.35098716),new LatLng(36.36948077,127.35117682)
+                        ,new LatLng(36.36905242935213, 127.35195036061559),new LatLng(36.36883054,127.35235855),new LatLng(36.36872541,127.35229934)
+                        ,new LatLng(36.36718432295817, 127.3520528560284))
+                .color(Color.BLUE)
+                .geodesic(true);
+        PolylineOptions polylineOptions5 = new PolylineOptions()
+                .add(new LatLng(36.36883054,127.35235855),new LatLng(36.36894547,127.35245851),new LatLng(36.369165630679575, 127.35198915694087)
+                        ,new LatLng(36.36921879,127.35189782),new LatLng(36.36911765,127.35183482))
+                .color(Color.BLUE)
+                .geodesic(true);
+
+        Polyline polyline1 = map.addPolyline(polylineOptions1);
+        polyline1.setJointType(JointType.ROUND);
+
+        Polyline polyline2 = map.addPolyline(polylineOptions2);
+        polyline2.setJointType(JointType.ROUND);
+
+        Polyline polyline3 = map.addPolyline(polylineOptions3);
+        polyline3.setJointType(JointType.ROUND);
+
+        Polyline polyline4 = map.addPolyline(polylineOptions4);
+        polyline4.setJointType(JointType.ROUND);
+
+        Polyline polyline5 = map.addPolyline(polylineOptions5);
+        polyline5.setJointType(JointType.ROUND);
 
 
         // 지도에 마커 추가(이 마커 디자인은 변경할 수 있습니다.)
@@ -263,6 +434,153 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                Date currentTime = new Date();
+                int hour = currentTime.getHours();
+                int minute = currentTime.getMinutes();
+                int seconds = currentTime.getSeconds();
+
+//                if (hour <= 7 || hour >= 18) { running = false; }
+//                else {
+//                    switch (hour) {
+//                        case 9:
+//                        case 11:
+//                        case 13:
+//                        case 14:
+//                        case 15:
+//                        case 16:
+//                        case 17:
+                            running = true;
+                            /*switch (minute) {
+                                case 0:
+                                case 30:
+                                    running = true;
+                            }*/
+//                    }
+//                }
+
+                if (location != null && running) {
+                    if (!visited[1] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberOne.latitude, numberOne.longitude) <= 0.1) {
+                        if (visited[14]) {
+                            busA.child("station15").child("visit").setValue(false);
+                            running = false;
+                        } else {
+                            busA.child("station1").child("visit").setValue(true);
+                        }
+                    } else if (visited[0] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberTwo.latitude, numberTwo.longitude) <= 0.1) {
+                        busA.child("station1").child("visit").setValue(false);
+                        busA.child("station2").child("visit").setValue(true);
+                    } else if (visited[1] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberThree.latitude, numberThree.longitude) <= 0.1) {
+                        busA.child("station2").child("visit").setValue(false);
+                        busA.child("station3").child("visit").setValue(true);
+                    } else if (visited[2] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFour.latitude, numberFour.longitude) <= 0.1) {
+                        busA.child("station3").child("visit").setValue(false);
+                        busA.child("station4").child("visit").setValue(true);
+                    } else if (visited[3] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFive.latitude, numberFive.longitude) <= 0.1) {
+                        busA.child("station4").child("visit").setValue(false);
+                        busA.child("station5").child("visit").setValue(true);
+                    } else if (visited[4] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberSix.latitude, numberSeven.longitude) <= 0.1) {
+                        busA.child("station5").child("visit").setValue(false);
+                        busA.child("station6").child("visit").setValue(true);
+                    } else if (visited[5] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberSeven.latitude, numberSeven.longitude) <= 0.1) {
+                        busA.child("station6").child("visit").setValue(false);
+                        busA.child("station7").child("visit").setValue(true);
+                    } else if (visited[6] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberEight.latitude, numberEight.longitude) <= 0.1) {
+                        busA.child("station7").child("visit").setValue(false);
+                        busA.child("station8").child("visit").setValue(true);
+                    } else if (visited[7] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberNine.latitude, numberNine.longitude) <= 0.1) {
+                        busA.child("station8").child("visit").setValue(false);
+                        busA.child("station9").child("visit").setValue(true);
+                    } else if (visited[8] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberTen.latitude, numberTen.longitude) <= 0.1) {
+                        busA.child("station9").child("visit").setValue(false);
+                        busA.child("station10").child("visit").setValue(true);
+                    } else if (visited[9] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberEleven.latitude, numberEleven.longitude) <= 0.1) {
+                        busA.child("station10").child("visit").setValue(false);
+                        busA.child("station11").child("visit").setValue(true);
+                    } else if (visited[10] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberTwelve.latitude, numberTwelve.longitude) <= 0.1) {
+                        busA.child("station11").child("visit").setValue(false);
+                        busA.child("station12").child("visit").setValue(true);
+                    } else if (visited[11] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberThirteen.latitude, numberThirteen.longitude) <= 0.1) {
+                        busA.child("station12").child("visit").setValue(false);
+                        busA.child("station13").child("visit").setValue(true);
+                    } else if (visited[12] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFourteen.latitude, numberFourteen.longitude) <= 0.1) {
+                        busA.child("station13").child("visit").setValue(false);
+                        busA.child("station14").child("visit").setValue(true);
+                    } else if (visited[13] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFifteen.latitude, numberFifteen.longitude) <= 0.1) {
+                        busA.child("station14").child("visit").setValue(false);
+                        busA.child("station15").child("visit").setValue(true);
+                    }
+
+                    if (calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberOne.latitude, numberOne.longitude) <= 0.02) {
+                        if (visited2[14]) {
+                            busA.child("station15").child("passed").setValue(false);
+                            running = false;
+                        } else {
+                            busA.child("station1").child("passed").setValue(true);
+                        }
+                    } else if (visited2[0] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberTwo.latitude, numberTwo.longitude) <= 0.02) {
+                        busA.child("station1").child("passed").setValue(false);
+                        busA.child("station2").child("passed").setValue(true);
+                    } else if (visited2[1] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberThree.latitude, numberThree.longitude) <= 0.02) {
+                        busA.child("station2").child("passed").setValue(false);
+                        busA.child("station3").child("passed").setValue(true);
+                    } else if (visited2[2] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFour.latitude, numberFour.longitude) <= 0.02) {
+                        busA.child("station3").child("passed").setValue(false);
+                        busA.child("station4").child("passed").setValue(true);
+                    } else if (visited2[3] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFive.latitude, numberFive.longitude) <= 0.02) {
+                        busA.child("station4").child("passed").setValue(false);
+                        busA.child("station5").child("passed").setValue(true);
+                    } else if (visited2[4] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberSix.latitude, numberSeven.longitude) <= 0.02) {
+                        busA.child("station5").child("passed").setValue(false);
+                        busA.child("station6").child("passed").setValue(true);
+                    } else if (visited2[5] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberSeven.latitude, numberSeven.longitude) <= 0.02) {
+                        busA.child("station6").child("passed").setValue(false);
+                        busA.child("station7").child("passed").setValue(true);
+                    } else if (visited2[6] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberEight.latitude, numberEight.longitude) <= 0.02) {
+                        busA.child("station7").child("passed").setValue(false);
+                        busA.child("station8").child("passed").setValue(true);
+                    } else if (visited2[7] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberNine.latitude, numberNine.longitude) <= 0.02) {
+                        busA.child("station8").child("passed").setValue(false);
+                        busA.child("station9").child("passed").setValue(true);
+                    } else if (visited2[8] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberTen.latitude, numberTen.longitude) <= 0.02) {
+                        busA.child("station9").child("passed").setValue(false);
+                        busA.child("station10").child("passed").setValue(true);
+                    } else if (visited2[9] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberEleven.latitude, numberEleven.longitude) <= 0.02) {
+                        busA.child("station10").child("passed").setValue(false);
+                        busA.child("station11").child("passed").setValue(true);
+                    } else if (visited[10] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberTwelve.latitude, numberTwelve.longitude) <= 0.02) {
+                        busA.child("station11").child("passed").setValue(false);
+                        busA.child("station12").child("passed").setValue(true);
+                    } else if (visited2[11] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberThirteen.latitude, numberThirteen.longitude) <= 0.02) {
+                        busA.child("station12").child("passed").setValue(false);
+                        busA.child("station13").child("passed").setValue(true);
+                    } else if (visited2[12] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFourteen.latitude, numberFourteen.longitude) <= 0.02) {
+                        busA.child("station13").child("passed").setValue(false);
+                        busA.child("station14").child("passed").setValue(true);
+                    } else if (visited2[13] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFifteen.latitude, numberFifteen.longitude) <= 0.02) {
+                        busA.child("station14").child("passed").setValue(false);
+                        busA.child("station15").child("passed").setValue(true);
+                    }
+                }
+
+
+            }
+        };
+
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try { Thread.sleep(1000); }
+                    catch (InterruptedException e) {}
+                    handler.sendEmptyMessage(1);
+                }
+            }
+        };
+        Thread thread = new Thread(task);
+        thread.start();
 
 
     }
@@ -324,6 +642,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
+
+    public double calculateDistanceInMeter(double userLat, double userLng, double venueLat, double venueLng) {
+
+        double latDistance = Math.toRadians(userLat - venueLat);
+        double lngDistance = Math.toRadians(userLng - venueLng);
+
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(userLat)) * Math.cos(Math.toRadians(venueLat))
+                * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return Math.round(AVERAGE_RADIUS_OF_EARTH_KM * c * 1000)/1000.0;
+    }
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -341,7 +675,51 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         }
 
+        busA.child("connected").setValue(true);
 
+        busA.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    visited[0] = (boolean) snapshot.child("station1").child("visit").getValue();
+                    visited[1] = (boolean) snapshot.child("station2").child("visit").getValue();
+                    visited[2] = (boolean) snapshot.child("station3").child("visit").getValue();
+                    visited[3] = (boolean) snapshot.child("station4").child("visit").getValue();
+                    visited[4] = (boolean) snapshot.child("station5").child("visit").getValue();
+                    visited[5] = (boolean) snapshot.child("station6").child("visit").getValue();
+                    visited[6] = (boolean) snapshot.child("station7").child("visit").getValue();
+                    visited[7] = (boolean) snapshot.child("station8").child("visit").getValue();
+                    visited[8] = (boolean) snapshot.child("station9").child("visit").getValue();
+                    visited[9] = (boolean) snapshot.child("station10").child("visit").getValue();
+                    visited[10] = (boolean) snapshot.child("station11").child("visit").getValue();
+                    visited[11] = (boolean) snapshot.child("station12").child("visit").getValue();
+                    visited[12] = (boolean) snapshot.child("station13").child("visit").getValue();
+                    visited[13] = (boolean) snapshot.child("station14").child("visit").getValue();
+                    visited[14] = (boolean) snapshot.child("station15").child("visit").getValue();
+
+                    visited2[0] = (boolean) snapshot.child("station1").child("passed").getValue();
+                    visited2[1] = (boolean) snapshot.child("station2").child("passed").getValue();
+                    visited2[2] = (boolean) snapshot.child("station3").child("passed").getValue();
+                    visited2[3] = (boolean) snapshot.child("station4").child("passed").getValue();
+                    visited2[4] = (boolean) snapshot.child("station5").child("passed").getValue();
+                    visited2[5] = (boolean) snapshot.child("station6").child("passed").getValue();
+                    visited2[6] = (boolean) snapshot.child("station7").child("passed").getValue();
+                    visited2[7] = (boolean) snapshot.child("station8").child("passed").getValue();
+                    visited2[8] = (boolean) snapshot.child("station9").child("passed").getValue();
+                    visited2[9] = (boolean) snapshot.child("station10").child("passed").getValue();
+                    visited2[10] = (boolean) snapshot.child("station11").child("passed").getValue();
+                    visited2[11] = (boolean) snapshot.child("station12").child("passed").getValue();
+                    visited2[12] = (boolean) snapshot.child("station13").child("passed").getValue();
+                    visited2[13] = (boolean) snapshot.child("station14").child("passed").getValue();
+                    visited2[14] = (boolean) snapshot.child("station15").child("passed").getValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 
@@ -355,6 +733,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             Log.d(TAG, "onStop : call stopLocationUpdates");
             mFusedLocationClient.removeLocationUpdates(locationCallback);
         }
+
+        busA.child("connected").setValue(false);
     }
 
 
