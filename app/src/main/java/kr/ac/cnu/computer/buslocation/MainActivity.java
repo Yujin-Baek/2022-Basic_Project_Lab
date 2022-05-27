@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private boolean doesSetCurrentLocation = false;
 
     private boolean[] visited = new boolean[15];
+    private boolean[] visited2 = new boolean[15];
     private boolean running = false;
     private boolean lastStop = false;
 
@@ -441,77 +442,130 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 int minute = currentTime.getMinutes();
                 int seconds = currentTime.getSeconds();
 
-                if (hour <= 7 || hour >= 18) { running = false; }
-                else {
-                    switch (hour) {
-                        case 9:
-                        case 11:
-                        case 13:
-                        case 14:
-                        case 15:
-                        case 16:
-                        case 17:
+//                if (hour <= 7 || hour >= 18) { running = false; }
+//                else {
+//                    switch (hour) {
+//                        case 9:
+//                        case 11:
+//                        case 13:
+//                        case 14:
+//                        case 15:
+//                        case 16:
+//                        case 17:
                             running = true;
                             /*switch (minute) {
                                 case 0:
                                 case 30:
                                     running = true;
                             }*/
-                    }
-                }
+//                    }
+//                }
 
                 if (location != null && running) {
-                    if (!visited[1] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberOne.latitude, numberOne.longitude) <= 0.02) {
+                    if (!visited[1] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberOne.latitude, numberOne.longitude) <= 0.1) {
                         if (visited[14]) {
                             busA.child("station15").child("visit").setValue(false);
                             running = false;
                         } else {
                             busA.child("station1").child("visit").setValue(true);
                         }
-                    } else if (visited[0] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberTwo.latitude, numberTwo.longitude) <= 0.02) {
+                    } else if (visited[0] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberTwo.latitude, numberTwo.longitude) <= 0.1) {
                         busA.child("station1").child("visit").setValue(false);
                         busA.child("station2").child("visit").setValue(true);
-                    } else if (visited[1] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberThree.latitude, numberThree.longitude) <= 0.02) {
+                    } else if (visited[1] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberThree.latitude, numberThree.longitude) <= 0.1) {
                         busA.child("station2").child("visit").setValue(false);
                         busA.child("station3").child("visit").setValue(true);
-                    } else if (visited[2] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFour.latitude, numberFour.longitude) <= 0.02) {
+                    } else if (visited[2] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFour.latitude, numberFour.longitude) <= 0.1) {
                         busA.child("station3").child("visit").setValue(false);
                         busA.child("station4").child("visit").setValue(true);
-                    } else if (visited[3] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFive.latitude, numberFive.longitude) <= 0.02) {
+                    } else if (visited[3] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFive.latitude, numberFive.longitude) <= 0.1) {
                         busA.child("station4").child("visit").setValue(false);
                         busA.child("station5").child("visit").setValue(true);
-                    } else if (visited[4] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberSix.latitude, numberSeven.longitude) <= 0.02) {
+                    } else if (visited[4] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberSix.latitude, numberSeven.longitude) <= 0.1) {
                         busA.child("station5").child("visit").setValue(false);
                         busA.child("station6").child("visit").setValue(true);
-                    } else if (visited[5] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberSeven.latitude, numberSeven.longitude) <= 0.02) {
+                    } else if (visited[5] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberSeven.latitude, numberSeven.longitude) <= 0.1) {
                         busA.child("station6").child("visit").setValue(false);
                         busA.child("station7").child("visit").setValue(true);
-                    } else if (visited[6] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberEight.latitude, numberEight.longitude) <= 0.02) {
+                    } else if (visited[6] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberEight.latitude, numberEight.longitude) <= 0.1) {
                         busA.child("station7").child("visit").setValue(false);
                         busA.child("station8").child("visit").setValue(true);
-                    } else if (visited[7] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberNine.latitude, numberNine.longitude) <= 0.02) {
+                    } else if (visited[7] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberNine.latitude, numberNine.longitude) <= 0.1) {
                         busA.child("station8").child("visit").setValue(false);
                         busA.child("station9").child("visit").setValue(true);
-                    } else if (visited[8] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberTen.latitude, numberTen.longitude) <= 0.02) {
+                    } else if (visited[8] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberTen.latitude, numberTen.longitude) <= 0.1) {
                         busA.child("station9").child("visit").setValue(false);
                         busA.child("station10").child("visit").setValue(true);
-                    } else if (visited[9] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberEleven.latitude, numberEleven.longitude) <= 0.02) {
+                    } else if (visited[9] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberEleven.latitude, numberEleven.longitude) <= 0.1) {
                         busA.child("station10").child("visit").setValue(false);
                         busA.child("station11").child("visit").setValue(true);
-                    } else if (visited[10] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberTwelve.latitude, numberTwelve.longitude) <= 0.02) {
+                    } else if (visited[10] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberTwelve.latitude, numberTwelve.longitude) <= 0.1) {
                         busA.child("station11").child("visit").setValue(false);
                         busA.child("station12").child("visit").setValue(true);
-                    } else if (visited[11] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberThirteen.latitude, numberThirteen.longitude) <= 0.02) {
+                    } else if (visited[11] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberThirteen.latitude, numberThirteen.longitude) <= 0.1) {
                         busA.child("station12").child("visit").setValue(false);
                         busA.child("station13").child("visit").setValue(true);
-                    } else if (visited[12] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFourteen.latitude, numberFourteen.longitude) <= 0.02) {
+                    } else if (visited[12] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFourteen.latitude, numberFourteen.longitude) <= 0.1) {
                         busA.child("station13").child("visit").setValue(false);
                         busA.child("station14").child("visit").setValue(true);
-                    } else if (visited[13] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFifteen.latitude, numberFifteen.longitude) <= 0.02) {
+                    } else if (visited[13] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFifteen.latitude, numberFifteen.longitude) <= 0.1) {
                         busA.child("station14").child("visit").setValue(false);
                         busA.child("station15").child("visit").setValue(true);
                     }
+
+                    if (calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberOne.latitude, numberOne.longitude) <= 0.02) {
+                        if (visited2[14]) {
+                            busA.child("station15").child("passed").setValue(false);
+                            running = false;
+                        } else {
+                            busA.child("station1").child("passed").setValue(true);
+                        }
+                    } else if (visited2[0] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberTwo.latitude, numberTwo.longitude) <= 0.02) {
+                        busA.child("station1").child("passed").setValue(false);
+                        busA.child("station2").child("passed").setValue(true);
+                    } else if (visited2[1] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberThree.latitude, numberThree.longitude) <= 0.02) {
+                        busA.child("station2").child("passed").setValue(false);
+                        busA.child("station3").child("passed").setValue(true);
+                    } else if (visited2[2] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFour.latitude, numberFour.longitude) <= 0.02) {
+                        busA.child("station3").child("passed").setValue(false);
+                        busA.child("station4").child("passed").setValue(true);
+                    } else if (visited2[3] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFive.latitude, numberFive.longitude) <= 0.02) {
+                        busA.child("station4").child("passed").setValue(false);
+                        busA.child("station5").child("passed").setValue(true);
+                    } else if (visited2[4] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberSix.latitude, numberSeven.longitude) <= 0.02) {
+                        busA.child("station5").child("passed").setValue(false);
+                        busA.child("station6").child("passed").setValue(true);
+                    } else if (visited2[5] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberSeven.latitude, numberSeven.longitude) <= 0.02) {
+                        busA.child("station6").child("passed").setValue(false);
+                        busA.child("station7").child("passed").setValue(true);
+                    } else if (visited2[6] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberEight.latitude, numberEight.longitude) <= 0.02) {
+                        busA.child("station7").child("passed").setValue(false);
+                        busA.child("station8").child("passed").setValue(true);
+                    } else if (visited2[7] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberNine.latitude, numberNine.longitude) <= 0.02) {
+                        busA.child("station8").child("passed").setValue(false);
+                        busA.child("station9").child("passed").setValue(true);
+                    } else if (visited2[8] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberTen.latitude, numberTen.longitude) <= 0.02) {
+                        busA.child("station9").child("passed").setValue(false);
+                        busA.child("station10").child("passed").setValue(true);
+                    } else if (visited2[9] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberEleven.latitude, numberEleven.longitude) <= 0.02) {
+                        busA.child("station10").child("passed").setValue(false);
+                        busA.child("station11").child("passed").setValue(true);
+                    } else if (visited[10] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberTwelve.latitude, numberTwelve.longitude) <= 0.02) {
+                        busA.child("station11").child("passed").setValue(false);
+                        busA.child("station12").child("passed").setValue(true);
+                    } else if (visited2[11] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberThirteen.latitude, numberThirteen.longitude) <= 0.02) {
+                        busA.child("station12").child("passed").setValue(false);
+                        busA.child("station13").child("passed").setValue(true);
+                    } else if (visited2[12] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFourteen.latitude, numberFourteen.longitude) <= 0.02) {
+                        busA.child("station13").child("passed").setValue(false);
+                        busA.child("station14").child("passed").setValue(true);
+                    } else if (visited2[13] && calculateDistanceInMeter(location.getLatitude(), location.getLongitude(), numberFifteen.latitude, numberFifteen.longitude) <= 0.02) {
+                        busA.child("station14").child("passed").setValue(false);
+                        busA.child("station15").child("passed").setValue(true);
+                    }
                 }
+
+
             }
         };
 
@@ -642,6 +696,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     visited[12] = (boolean) snapshot.child("station13").child("visit").getValue();
                     visited[13] = (boolean) snapshot.child("station14").child("visit").getValue();
                     visited[14] = (boolean) snapshot.child("station15").child("visit").getValue();
+
+                    visited2[0] = (boolean) snapshot.child("station1").child("passed").getValue();
+                    visited2[1] = (boolean) snapshot.child("station2").child("passed").getValue();
+                    visited2[2] = (boolean) snapshot.child("station3").child("passed").getValue();
+                    visited2[3] = (boolean) snapshot.child("station4").child("passed").getValue();
+                    visited2[4] = (boolean) snapshot.child("station5").child("passed").getValue();
+                    visited2[5] = (boolean) snapshot.child("station6").child("passed").getValue();
+                    visited2[6] = (boolean) snapshot.child("station7").child("passed").getValue();
+                    visited2[7] = (boolean) snapshot.child("station8").child("passed").getValue();
+                    visited2[8] = (boolean) snapshot.child("station9").child("passed").getValue();
+                    visited2[9] = (boolean) snapshot.child("station10").child("passed").getValue();
+                    visited2[10] = (boolean) snapshot.child("station11").child("passed").getValue();
+                    visited2[11] = (boolean) snapshot.child("station12").child("passed").getValue();
+                    visited2[12] = (boolean) snapshot.child("station13").child("passed").getValue();
+                    visited2[13] = (boolean) snapshot.child("station14").child("passed").getValue();
+                    visited2[14] = (boolean) snapshot.child("station15").child("passed").getValue();
                 }
             }
 
