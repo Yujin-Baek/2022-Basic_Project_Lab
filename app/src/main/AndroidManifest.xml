@@ -8,9 +8,9 @@
 
     <application
             android:allowBackup="true"
-            android:icon="@mipmap/cnu_bus_loc"
+            android:icon="@mipmap/cnu_bus_loc_2"
             android:label="@string/app_name"
-            android:roundIcon="@mipmap/cnu_bus_loc"
+            android:roundIcon="@mipmap/cnu_bus_loc_2"
             android:supportsRtl="true"
             android:theme="@style/Theme.BusLocation">
 
@@ -18,13 +18,14 @@
                 android:name="com.google.android.geo.API_KEY"
                 android:value="AIzaSyD6WWrKLO0LqB4BO8mf5AsQVCDxn9G5kNc"/>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".splashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity"> </activity>
     </application>
 
 </manifest>

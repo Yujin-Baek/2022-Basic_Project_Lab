@@ -1,2 +1,2 @@
-rootProject.name = "BusLocation"
+rootProject.name = "CNUBusProject-ForBus"
 include ':app'
