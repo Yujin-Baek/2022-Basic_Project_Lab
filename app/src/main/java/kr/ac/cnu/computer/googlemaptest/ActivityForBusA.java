@@ -1,20 +1,5 @@
 package kr.ac.cnu.computer.googlemaptest;
 
-/*
- *
- *
- * 퍼미션 관련 부분은 혹시 몰라서 '코드 원작자의 주석' 을 달긴 했습니다.
- * 사실 저도 무슨 말인지 모르겠어요.
- * 딱히 퍼미션 관련 부분은 건드리지 않아도 될거 같습니다.
- * 그리고 제가 아무래도 남의 코드를 가져온거다 보니 삭제해도 될거 같은 부분은 삭제해서,
- * 미처 지우지 못한 더미 데이터가 있을 수도 있습니다. 참고 바랍니다.
- * A노선 액티비티와 B노선 액티비티는 거의 유사하므로 A노선 액티비티에만 주석을 달겠습니다.
- *   -최시은
- *
- * 참고 코드 블로그 : https://webnautes.tistory.com/1249
- *
- *
- */
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -621,6 +606,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             innerText14 = stationTimeArr[13]+"분 후 도착";
                             innerText15 = stationTimeArr[14]+"분 후 도착";
                             //나머지 정류장은 stationTime으로 세팅
+
                         }
                         else if (visited[1]) {
                             textView.setText("경상대학 -> 도서관");
