@@ -105,25 +105,40 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
     private boolean[] visited = new boolean[15];
     private boolean[] visited2 = new boolean[15];
 
+    String innerText1 = "";
+    String innerText2 = "";
+    String innerText3 = "";
+    String innerText4 = "";
+    String innerText5 = "";
+    String innerText6 = "";
+    String innerText7 = "";
+    String innerText8 = "";
+    String innerText9 = "";
+    String innerText10 = "";
+    String innerText11 = "";
+    String innerText12 = "";
+    String innerText13 = "";
+    String innerText14 = "";
+    String innerText15 = "";
+
 
     TextView textView; // 이게 스니펫으로 불러올 텍스트인가?? 잠만 텍스트 뷰가 이거 하난테 설마 이걸로 전부 다 쓴거야??
 
-    TextView textView1;
-    TextView textView2;
-    TextView textView3;
-    TextView textView4;
-    TextView textView5;
-    TextView textView6;
-    TextView textView7;
-    TextView textView8;
-    TextView textView9;
-    TextView textView10;
-    TextView textView11;
-    TextView textView12;
-    TextView textView13;
-    TextView textView14;
-    TextView textView15;
-
+    Marker marker1;
+    Marker marker2;
+    Marker marker3;
+    Marker marker4;
+    Marker marker5;
+    Marker marker6;
+    Marker marker7;
+    Marker marker8;
+    Marker marker9;
+    Marker marker10;
+    Marker marker11;
+    Marker marker12;
+    Marker marker13;
+    Marker marker14;
+    Marker marker15;
 
     private String[] startTimeArr;
     private int[] stationTimeArr;
@@ -175,44 +190,47 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
             }
         });
 
-        textView = findViewById(R.id.textView);
 
-        textView1 = findViewById(R.id.textView1);
-        textView2 = findViewById(R.id.textView2);
-        textView3 = findViewById(R.id.textView3);
-        textView4 = findViewById(R.id.textView4);
-        textView5 = findViewById(R.id.textView5);
-        textView6 = findViewById(R.id.textView6);
-        textView7 = findViewById(R.id.textView7);
-        textView8 = findViewById(R.id.textView8);
-        textView9 = findViewById(R.id.textView9);
-        textView10 = findViewById(R.id.textView10);
-        textView11 = findViewById(R.id.textView11);
-        textView12 = findViewById(R.id.textView12);
-        textView13 = findViewById(R.id.textView13);
-        textView14 = findViewById(R.id.textView14);
-        textView15 = findViewById(R.id.textView15);
+
+        textView = findViewById(R.id.textView);
 
 
         startTimeArr = new String[15];
 
-        startTimeArr[0] = "14:30";
-        startTimeArr[1] = "15:00";
-        startTimeArr[2] = "15:30";
-        startTimeArr[3] = "16:00";
-        startTimeArr[4] = "16:30";
-        startTimeArr[5] = "17:00";
-        startTimeArr[6] = "17:30";
-        startTimeArr[7] = "18:00";
-        startTimeArr[8] = "19:00";
-        startTimeArr[9] = "19:30";
-        startTimeArr[10] = "21:00";
-        startTimeArr[11] = "21:30";
-        startTimeArr[12] = "22:30";
-        startTimeArr[13] = "23:00";
-        startTimeArr[14] = "23:30";
+        startTimeArr[0] = "08:30";
+        startTimeArr[1] = "09:00";
+        startTimeArr[2] = "09:30";
+        startTimeArr[3] = "10:00";
+        startTimeArr[4] = "11:00";
+        startTimeArr[5] = "11:30";
+        startTimeArr[6] = "13:00";
+        startTimeArr[7] = "13:30";
+        startTimeArr[8] = "14:30";
+        startTimeArr[9] = "15:00";
+        startTimeArr[10] = "15:30";
+        startTimeArr[11] = "16:00";
+        startTimeArr[12] = "16:30";
+        startTimeArr[13] = "17:00";
+        startTimeArr[14] = "17:30";
 
         stationTimeArr = new int[15];
+
+        stationTimeArr[0] = 1;
+        stationTimeArr[1] = 1;
+        stationTimeArr[2] = 2;
+        stationTimeArr[3] = 2;
+        stationTimeArr[4] = 1;
+        stationTimeArr[5] = 1;
+        stationTimeArr[6] = 1;
+        stationTimeArr[7] = 1;
+        stationTimeArr[8] = 1;
+        stationTimeArr[9] = 1;
+        stationTimeArr[10] = 1;
+        stationTimeArr[11] = 1;
+        stationTimeArr[12] = 1;
+        stationTimeArr[13] = 1;
+        stationTimeArr[14] = 1;
+
 
         for(int i=0; i<stationTimeArr.length; i++) {
             stationTimeArr[i] = i;
@@ -479,21 +497,21 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
 
 
 
-        map.addMarker(stationOne);
-        map.addMarker(stationTwo);
-        map.addMarker(stationThree);
-        map.addMarker(stationFour);
-        map.addMarker(stationFive);
-        map.addMarker(stationSix);
-        map.addMarker(stationSeven);
-        map.addMarker(stationEight);
-        map.addMarker(stationNine);
-        map.addMarker(stationTen);
-        map.addMarker(stationEleven);
-        map.addMarker(stationTwelve);
-        map.addMarker(stationThirteen);
-        map.addMarker(stationFourteen);
-        map.addMarker(stationFifteen);
+        marker1 = map.addMarker(stationOne);
+        marker2 = map.addMarker(stationTwo);
+        marker3 = map.addMarker(stationThree);
+        marker4 = map.addMarker(stationFour);
+        marker5 = map.addMarker(stationFive);
+        marker6 = map.addMarker(stationSix);
+        marker7 = map.addMarker(stationSeven);
+        marker8 = map.addMarker(stationEight);
+        marker9 = map.addMarker(stationNine);
+        marker10 = map.addMarker(stationTen);
+        marker11 = map.addMarker(stationEleven);
+        marker12 = map.addMarker(stationTwelve);
+        marker13 = map.addMarker(stationThirteen);
+        marker14 = map.addMarker(stationFourteen);
+        marker15 = map.addMarker(stationFifteen);
 
         map.setOnMarkerClickListener(this);
 
@@ -552,9 +570,8 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                 int minute = currentTime.getMinutes();
                 int seconds = currentTime.getSeconds();
 
-//                if (hour <= 7 || hour >= 18) { running = false; }
-//                else { running = true; }
-                running = true;
+                if (hour <= 7 || hour >= 18) { running = false; }
+                else { running = true; }
 
                 if (!running) {
                     textView.setText("버스 운행이 종료되었습니다.");
@@ -585,22 +602,24 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                                 }
                             }
                             long setTime = min + stationTimeArr[0];
-                            textView1.setText(setTime+"");
+//                            textView1.setText(setTime+"");
+                            innerText1 = setTime+"분 후 도착";
                             //첫 번째 정류장은 다음 출발시간까지 남은 시간으로 세팅
-                            textView2.setText(stationTimeArr[1]+"");
-                            textView3.setText(stationTimeArr[2]+"");
-                            textView4.setText(stationTimeArr[3]+"");
-                            textView5.setText(stationTimeArr[4]+"");
-                            textView6.setText(stationTimeArr[5]+"");
-                            textView7.setText(stationTimeArr[6]+"");
-                            textView8.setText(stationTimeArr[7]+"");
-                            textView9.setText(stationTimeArr[8]+"");
-                            textView10.setText(stationTimeArr[9]+"");
-                            textView11.setText(stationTimeArr[10]+"");
-                            textView12.setText(stationTimeArr[11]+"");
-                            textView13.setText(stationTimeArr[12]+"");
-                            textView14.setText(stationTimeArr[13]+"");
-                            textView15.setText(stationTimeArr[14]+"");
+
+                            innerText2 = stationTimeArr[1]+"분 후 도착";
+                            innerText3 = stationTimeArr[2]+"분 후 도착";
+                            innerText4 = stationTimeArr[3]+"분 후 도착";
+                            innerText5 = stationTimeArr[4]+"분 후 도착";
+                            innerText6 = stationTimeArr[5]+"분 후 도착";
+                            innerText7 = stationTimeArr[6]+"분 후 도착";
+                            innerText8 = stationTimeArr[7]+"분 후 도착";
+                            innerText9 = stationTimeArr[8]+"분 후 도착";
+                            innerText10 = stationTimeArr[9]+"분 후 도착";
+                            innerText11 = stationTimeArr[10]+"분 후 도착";
+                            innerText12 = stationTimeArr[11]+"분 후 도착";
+                            innerText13 = stationTimeArr[12]+"분 후 도착";
+                            innerText14 = stationTimeArr[13]+"분 후 도착";
+                            innerText15 = stationTimeArr[14]+"분 후 도착";
                             //나머지 정류장은 stationTime으로 세팅
                         }
                         else if (visited[1]) {
@@ -627,38 +646,39 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[1]) {
-                                textView2.setText((setTime+stationTimeArr[1])+"");
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
 
-                                textView1.setText(setTime+"");
-                                textView3.setText((stationTimeArr[2]-stationTimeArr[1])+"");
-                                textView4.setText((stationTimeArr[3]-stationTimeArr[1])+"");
-                                textView5.setText((stationTimeArr[4]-stationTimeArr[1])+"");
-                                textView6.setText((stationTimeArr[5]-stationTimeArr[1])+"");
-                                textView7.setText((stationTimeArr[6]-stationTimeArr[1])+"");
-                                textView8.setText((stationTimeArr[7]-stationTimeArr[1])+"");
-                                textView9.setText((stationTimeArr[8]-stationTimeArr[1])+"");
-                                textView10.setText((stationTimeArr[9]-stationTimeArr[1])+"");
-                                textView11.setText((stationTimeArr[10]-stationTimeArr[1])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[1])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[1])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[1])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[1])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText3 = (stationTimeArr[2]-stationTimeArr[1])+"분 후 도착";
+                                innerText4 = (stationTimeArr[3]-stationTimeArr[1])+"분 후 도착";
+                                innerText5 = (stationTimeArr[4]-stationTimeArr[1])+"분 후 도착";
+                                innerText6 = (stationTimeArr[5]-stationTimeArr[1])+"분 후 도착";
+                                innerText7 = (stationTimeArr[6]-stationTimeArr[1])+"분 후 도착";
+                                innerText8 = (stationTimeArr[7]-stationTimeArr[1])+"분 후 도착";
+                                innerText9 = (stationTimeArr[8]-stationTimeArr[1])+"분 후 도착";
+                                innerText10 = (stationTimeArr[9]-stationTimeArr[1])+"분 후 도착";
+                                innerText11 = (stationTimeArr[10]-stationTimeArr[1])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[1])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[1])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[1])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[1])+"분 후 도착";
                             } else {
-                                textView1.setText(setTime+"");
-                                textView2.setText("곧 도착");
-                                textView3.setText((stationTimeArr[2]-stationTimeArr[1])+"");
-                                textView4.setText((stationTimeArr[3]-stationTimeArr[1])+"");
-                                textView5.setText((stationTimeArr[4]-stationTimeArr[1])+"");
-                                textView6.setText((stationTimeArr[5]-stationTimeArr[1])+"");
-                                textView7.setText((stationTimeArr[6]-stationTimeArr[1])+"");
-                                textView8.setText((stationTimeArr[7]-stationTimeArr[1])+"");
-                                textView9.setText((stationTimeArr[8]-stationTimeArr[1])+"");
-                                textView10.setText((stationTimeArr[9]-stationTimeArr[1])+"");
-                                textView11.setText((stationTimeArr[10]-stationTimeArr[1])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[1])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[1])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[1])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[1])+"");
+
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = "곧 도착";
+                                innerText3 = (stationTimeArr[2]-stationTimeArr[1])+"분 후 도착";
+                                innerText4 = (stationTimeArr[3]-stationTimeArr[1])+"분 후 도착";
+                                innerText5 = (stationTimeArr[4]-stationTimeArr[1])+"분 후 도착";
+                                innerText6 = (stationTimeArr[5]-stationTimeArr[1])+"분 후 도착";
+                                innerText7 = (stationTimeArr[6]-stationTimeArr[1])+"분 후 도착";
+                                innerText8 = (stationTimeArr[7]-stationTimeArr[1])+"분 후 도착";
+                                innerText9 = (stationTimeArr[8]-stationTimeArr[1])+"분 후 도착";
+                                innerText10 = (stationTimeArr[9]-stationTimeArr[1])+"분 후 도착";
+                                innerText11 = (stationTimeArr[10]-stationTimeArr[1])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[1])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[1])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[1])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[1])+"분 후 도착";
                             }
                         }
                         else if (visited[2]) {
@@ -685,38 +705,38 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[2]) {
-                                textView3.setText((setTime+stationTimeArr[2])+"");
+                                innerText3 = setTime+stationTimeArr[2]+"분 후 도착";
 
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView4.setText((stationTimeArr[3]-stationTimeArr[2])+"");
-                                textView5.setText((stationTimeArr[4]-stationTimeArr[2])+"");
-                                textView6.setText((stationTimeArr[5]-stationTimeArr[2])+"");
-                                textView7.setText((stationTimeArr[6]-stationTimeArr[2])+"");
-                                textView8.setText((stationTimeArr[7]-stationTimeArr[2])+"");
-                                textView9.setText((stationTimeArr[8]-stationTimeArr[2])+"");
-                                textView10.setText((stationTimeArr[9]-stationTimeArr[2])+"");
-                                textView11.setText((stationTimeArr[10]-stationTimeArr[2])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[2])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[2])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[2])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[2])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText4 = (stationTimeArr[3]-stationTimeArr[2])+"분 후 도착";
+                                innerText5 = (stationTimeArr[4]-stationTimeArr[2])+"분 후 도착";
+                                innerText6 = (stationTimeArr[5]-stationTimeArr[2])+"분 후 도착";
+                                innerText7 = (stationTimeArr[6]-stationTimeArr[2])+"분 후 도착";
+                                innerText8 = (stationTimeArr[7]-stationTimeArr[2])+"분 후 도착";
+                                innerText9 = (stationTimeArr[8]-stationTimeArr[2])+"분 후 도착";
+                                innerText10 = (stationTimeArr[9]-stationTimeArr[2])+"분 후 도착";
+                                innerText11 = (stationTimeArr[10]-stationTimeArr[2])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[2])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[2])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[2])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[2])+"분 후 도착";
                             } else {
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText("곧 도착");
-                                textView4.setText((stationTimeArr[3]-stationTimeArr[2])+"");
-                                textView5.setText((stationTimeArr[4]-stationTimeArr[2])+"");
-                                textView6.setText((stationTimeArr[5]-stationTimeArr[2])+"");
-                                textView7.setText((stationTimeArr[6]-stationTimeArr[2])+"");
-                                textView8.setText((stationTimeArr[7]-stationTimeArr[2])+"");
-                                textView9.setText((stationTimeArr[8]-stationTimeArr[2])+"");
-                                textView10.setText((stationTimeArr[9]-stationTimeArr[2])+"");
-                                textView11.setText((stationTimeArr[10]-stationTimeArr[2])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[2])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[2])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[2])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[2])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = "곧 도착";
+                                innerText4 = (stationTimeArr[3]-stationTimeArr[2])+"분 후 도착";
+                                innerText5 = (stationTimeArr[4]-stationTimeArr[2])+"분 후 도착";
+                                innerText6 = (stationTimeArr[5]-stationTimeArr[2])+"분 후 도착";
+                                innerText7 = (stationTimeArr[6]-stationTimeArr[2])+"분 후 도착";
+                                innerText8 = (stationTimeArr[7]-stationTimeArr[2])+"분 후 도착";
+                                innerText9 = (stationTimeArr[8]-stationTimeArr[2])+"분 후 도착";
+                                innerText10 = (stationTimeArr[9]-stationTimeArr[2])+"분 후 도착";
+                                innerText11 = (stationTimeArr[10]-stationTimeArr[2])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[2])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[2])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[2])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[2])+"분 후 도착";
                             }
                         }
                         else if (visited[3]) {
@@ -743,38 +763,38 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[3]) {
-                                textView4.setText((setTime+stationTimeArr[3])+"");
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
 
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView5.setText((stationTimeArr[4]-stationTimeArr[3])+"");
-                                textView6.setText((stationTimeArr[5]-stationTimeArr[3])+"");
-                                textView7.setText((stationTimeArr[6]-stationTimeArr[3])+"");
-                                textView8.setText((stationTimeArr[7]-stationTimeArr[3])+"");
-                                textView9.setText((stationTimeArr[8]-stationTimeArr[3])+"");
-                                textView10.setText((stationTimeArr[9]-stationTimeArr[3])+"");
-                                textView11.setText((stationTimeArr[10]-stationTimeArr[3])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[3])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[3])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[3])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[3])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText5 = (stationTimeArr[4]-stationTimeArr[3])+"분 후 도착";
+                                innerText6 = (stationTimeArr[5]-stationTimeArr[3])+"분 후 도착";
+                                innerText7 = (stationTimeArr[6]-stationTimeArr[3])+"분 후 도착";
+                                innerText8 = (stationTimeArr[7]-stationTimeArr[3])+"분 후 도착";
+                                innerText9 = (stationTimeArr[8]-stationTimeArr[3])+"분 후 도착";
+                                innerText10 = (stationTimeArr[9]-stationTimeArr[3])+"분 후 도착";
+                                innerText11 = (stationTimeArr[10]-stationTimeArr[3])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[3])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[3])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[3])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[3])+"분 후 도착";
                             } else {
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText("곧 도착");
-                                textView5.setText((stationTimeArr[4]-stationTimeArr[3])+"");
-                                textView6.setText((stationTimeArr[5]-stationTimeArr[3])+"");
-                                textView7.setText((stationTimeArr[6]-stationTimeArr[3])+"");
-                                textView8.setText((stationTimeArr[7]-stationTimeArr[3])+"");
-                                textView9.setText((stationTimeArr[8]-stationTimeArr[3])+"");
-                                textView10.setText((stationTimeArr[9]-stationTimeArr[3])+"");
-                                textView11.setText((stationTimeArr[10]-stationTimeArr[3])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[3])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[3])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[3])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[3])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = "곧 도착";
+                                innerText5 = (stationTimeArr[4]-stationTimeArr[3])+"분 후 도착";
+                                innerText6 = (stationTimeArr[5]-stationTimeArr[3])+"분 후 도착";
+                                innerText7 = (stationTimeArr[6]-stationTimeArr[3])+"분 후 도착";
+                                innerText8 = (stationTimeArr[7]-stationTimeArr[3])+"분 후 도착";
+                                innerText9 = (stationTimeArr[8]-stationTimeArr[3])+"분 후 도착";
+                                innerText10 = (stationTimeArr[9]-stationTimeArr[3])+"분 후 도착";
+                                innerText11 = (stationTimeArr[10]-stationTimeArr[3])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[3])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[3])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[3])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[3])+"분 후 도착";
                             }
                         }
                         else if (visited[4]) {
@@ -801,38 +821,38 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[4]) {
-                                textView5.setText((setTime+stationTimeArr[4])+"");
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
 
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView6.setText((stationTimeArr[5]-stationTimeArr[4])+"");
-                                textView7.setText((stationTimeArr[6]-stationTimeArr[4])+"");
-                                textView8.setText((stationTimeArr[7]-stationTimeArr[4])+"");
-                                textView9.setText((stationTimeArr[8]-stationTimeArr[4])+"");
-                                textView10.setText((stationTimeArr[9]-stationTimeArr[4])+"");
-                                textView11.setText((stationTimeArr[10]-stationTimeArr[4])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[4])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[4])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[4])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[4])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText6 = (stationTimeArr[5]-stationTimeArr[4])+"분 후 도착";
+                                innerText7 = (stationTimeArr[6]-stationTimeArr[4])+"분 후 도착";
+                                innerText8 = (stationTimeArr[7]-stationTimeArr[4])+"분 후 도착";
+                                innerText9 = (stationTimeArr[8]-stationTimeArr[4])+"분 후 도착";
+                                innerText10 = (stationTimeArr[9]-stationTimeArr[4])+"분 후 도착";
+                                innerText11 = (stationTimeArr[10]-stationTimeArr[4])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[4])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[4])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[4])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[4])+"분 후 도착";
                             } else {
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText("곧 도착");
-                                textView6.setText((stationTimeArr[5]-stationTimeArr[4])+"");
-                                textView7.setText((stationTimeArr[6]-stationTimeArr[4])+"");
-                                textView8.setText((stationTimeArr[7]-stationTimeArr[4])+"");
-                                textView9.setText((stationTimeArr[8]-stationTimeArr[4])+"");
-                                textView10.setText((stationTimeArr[9]-stationTimeArr[4])+"");
-                                textView11.setText((stationTimeArr[10]-stationTimeArr[4])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[4])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[4])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[4])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[4])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = "곧 도착";
+                                innerText6 = (stationTimeArr[5]-stationTimeArr[4])+"분 후 도착";
+                                innerText7 = (stationTimeArr[6]-stationTimeArr[4])+"분 후 도착";
+                                innerText8 = (stationTimeArr[7]-stationTimeArr[4])+"분 후 도착";
+                                innerText9 = (stationTimeArr[8]-stationTimeArr[4])+"분 후 도착";
+                                innerText10 = (stationTimeArr[9]-stationTimeArr[4])+"분 후 도착";
+                                innerText11 = (stationTimeArr[10]-stationTimeArr[4])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[4])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[4])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[4])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[4])+"분 후 도착";
                             }
                         }
                         else if (visited[5]) {
@@ -859,37 +879,38 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[5]) {
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView7.setText((stationTimeArr[6]-stationTimeArr[5])+"");
-                                textView8.setText((stationTimeArr[7]-stationTimeArr[5])+"");
-                                textView9.setText((stationTimeArr[8]-stationTimeArr[5])+"");
-                                textView10.setText((stationTimeArr[9]-stationTimeArr[5])+"");
-                                textView11.setText((stationTimeArr[10]-stationTimeArr[5])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[5])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[5])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[5])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[5])+"");
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText7 = (stationTimeArr[6]-stationTimeArr[5])+"분 후 도착";
+                                innerText8 = (stationTimeArr[7]-stationTimeArr[5])+"분 후 도착";
+                                innerText9 = (stationTimeArr[8]-stationTimeArr[5])+"분 후 도착";
+                                innerText10 = (stationTimeArr[9]-stationTimeArr[5])+"분 후 도착";
+                                innerText11 = (stationTimeArr[10]-stationTimeArr[5])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[5])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[5])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[5])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[5])+"분 후 도착";
                             } else {
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText("곧 도착");
-                                textView7.setText((stationTimeArr[6]-stationTimeArr[5])+"");
-                                textView8.setText((stationTimeArr[7]-stationTimeArr[5])+"");
-                                textView9.setText((stationTimeArr[8]-stationTimeArr[5])+"");
-                                textView10.setText((stationTimeArr[9]-stationTimeArr[5])+"");
-                                textView11.setText((stationTimeArr[10]-stationTimeArr[5])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[5])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[5])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[5])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[5])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = "곧 도착";
+                                innerText7 = (stationTimeArr[6]-stationTimeArr[5])+"분 후 도착";
+                                innerText8 = (stationTimeArr[7]-stationTimeArr[5])+"분 후 도착";
+                                innerText9 = (stationTimeArr[8]-stationTimeArr[5])+"분 후 도착";
+                                innerText10 = (stationTimeArr[9]-stationTimeArr[5])+"분 후 도착";
+                                innerText11 = (stationTimeArr[10]-stationTimeArr[5])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[5])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[5])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[5])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[5])+"분 후 도착";
                             }
                         }
                         else if (visited[6]) {
@@ -916,38 +937,38 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[6]) {
-                                textView7.setText((setTime+stationTimeArr[6])+"");
+                                innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
 
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView8.setText((stationTimeArr[7]-stationTimeArr[6])+"");
-                                textView9.setText((stationTimeArr[8]-stationTimeArr[6])+"");
-                                textView10.setText((stationTimeArr[9]-stationTimeArr[6])+"");
-                                textView11.setText((stationTimeArr[10]-stationTimeArr[6])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[6])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[6])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[6])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[6])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                                innerText8 = (stationTimeArr[7]-stationTimeArr[6])+"분 후 도착";
+                                innerText9 = (stationTimeArr[8]-stationTimeArr[6])+"분 후 도착";
+                                innerText10 = (stationTimeArr[9]-stationTimeArr[6])+"분 후 도착";
+                                innerText11 = (stationTimeArr[10]-stationTimeArr[6])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[6])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[6])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[6])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[6])+"분 후 도착";
                             } else {
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView7.setText("곧 도착");
-                                textView8.setText((stationTimeArr[7]-stationTimeArr[6])+"");
-                                textView9.setText((stationTimeArr[8]-stationTimeArr[6])+"");
-                                textView10.setText((stationTimeArr[9]-stationTimeArr[6])+"");
-                                textView11.setText((stationTimeArr[10]-stationTimeArr[6])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[6])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[6])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[6])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[6])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                                innerText7 = "곧 도착";
+                                innerText8 = (stationTimeArr[7]-stationTimeArr[6])+"분 후 도착";
+                                innerText9 = (stationTimeArr[8]-stationTimeArr[6])+"분 후 도착";
+                                innerText10 = (stationTimeArr[9]-stationTimeArr[6])+"분 후 도착";
+                                innerText11 = (stationTimeArr[10]-stationTimeArr[6])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[6])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[6])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[6])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[6])+"분 후 도착";
                             }
                         }
                         else if (visited[7]) {
@@ -974,38 +995,38 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[7]) {
-                                textView8.setText((setTime+stationTimeArr[7])+"");
+                                innerText8 = (setTime+stationTimeArr[7])+"분 후 도착";
 
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView7.setText((setTime+stationTimeArr[6])+"");
-                                textView9.setText((stationTimeArr[8]-stationTimeArr[7])+"");
-                                textView10.setText((stationTimeArr[9]-stationTimeArr[7])+"");
-                                textView11.setText((stationTimeArr[10]-stationTimeArr[7])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[7])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[7])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[7])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[7])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                                innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
+                                innerText9 = (stationTimeArr[8]-stationTimeArr[7])+"분 후 도착";
+                                innerText10 = (stationTimeArr[9]-stationTimeArr[7])+"분 후 도착";
+                                innerText11 = (stationTimeArr[10]-stationTimeArr[7])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[7])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[7])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[7])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[7])+"분 후 도착";
                             } else {
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView7.setText((setTime+stationTimeArr[6])+"");
-                                textView8.setText("곧 도착");
-                                textView9.setText((stationTimeArr[8]-stationTimeArr[7])+"");
-                                textView10.setText((stationTimeArr[9]-stationTimeArr[7])+"");
-                                textView11.setText((stationTimeArr[10]-stationTimeArr[7])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[7])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[7])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[7])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[7])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                                innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
+                                innerText8 = "곧 도착";
+                                innerText9 = (stationTimeArr[8]-stationTimeArr[7])+"분 후 도착";
+                                innerText10 = (stationTimeArr[9]-stationTimeArr[7])+"분 후 도착";
+                                innerText11 = (stationTimeArr[10]-stationTimeArr[7])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[7])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[7])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[7])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[7])+"분 후 도착";
                             }
                         }
                         else if (visited[8]) {
@@ -1032,38 +1053,39 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[8]) {
-                                textView9.setText((setTime+stationTimeArr[8])+"");
+                                innerText9 = (setTime+stationTimeArr[8])+"분 후 도착";
 
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView7.setText((setTime+stationTimeArr[6])+"");
-                                textView8.setText((setTime+stationTimeArr[7])+"");
-                                textView10.setText((stationTimeArr[9]-stationTimeArr[8])+"");
-                                textView11.setText((stationTimeArr[10]-stationTimeArr[8])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[8])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[8])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[8])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[8])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                                innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
+                                innerText8 = (setTime+stationTimeArr[7])+"분 후 도착";
+                                innerText10 = (stationTimeArr[9]-stationTimeArr[8])+"분 후 도착";
+                                innerText11 = (stationTimeArr[10]-stationTimeArr[8])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[8])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[8])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[8])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[8])+"분 후 도착";
+
                             } else {
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView7.setText((setTime+stationTimeArr[6])+"");
-                                textView8.setText((setTime+stationTimeArr[7])+"");
-                                textView9.setText("곧 도착");
-                                textView10.setText((stationTimeArr[9]-stationTimeArr[8])+"");
-                                textView11.setText((stationTimeArr[10]-stationTimeArr[8])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[8])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[8])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[8])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[8])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                                innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
+                                innerText8 = (setTime+stationTimeArr[7])+"분 후 도착";
+                                innerText9 = "곧 도착";
+                                innerText10 = (stationTimeArr[9]-stationTimeArr[8])+"분 후 도착";
+                                innerText11 = (stationTimeArr[10]-stationTimeArr[8])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[8])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[8])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[8])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[8])+"분 후 도착";
                             }
                         }
                         else if (visited[9]) {
@@ -1090,38 +1112,38 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[9]) {
-                                textView10.setText((setTime+stationTimeArr[9])+"");
+                                innerText10 = (setTime+stationTimeArr[9])+"분 후 도착";
 
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView7.setText((setTime+stationTimeArr[6])+"");
-                                textView8.setText((setTime+stationTimeArr[7])+"");
-                                textView9.setText((setTime+stationTimeArr[8])+"");
-                                textView11.setText((stationTimeArr[10]-stationTimeArr[9])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[9])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[9])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[9])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[9])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                                innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
+                                innerText8 = (setTime+stationTimeArr[7])+"분 후 도착";
+                                innerText9 = (setTime+stationTimeArr[8])+"분 후 도착";
+                                innerText11 = (stationTimeArr[10]-stationTimeArr[9])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[9])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[9])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[9])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[9])+"분 후 도착";
                             } else {
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView7.setText((setTime+stationTimeArr[6])+"");
-                                textView8.setText((setTime+stationTimeArr[7])+"");
-                                textView9.setText((setTime+stationTimeArr[8])+"");
-                                textView10.setText("곧 도착");
-                                textView11.setText((stationTimeArr[10]-stationTimeArr[9])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[9])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[9])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[9])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[9])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                                innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
+                                innerText8 = (setTime+stationTimeArr[7])+"분 후 도착";
+                                innerText9 = (setTime+stationTimeArr[8])+"분 후 도착";
+                                innerText10 = "곧 도착";
+                                innerText11 = (stationTimeArr[10]-stationTimeArr[9])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[9])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[9])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[9])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[9])+"분 후 도착";
                             }
                         }
                         else if (visited[10]) {
@@ -1148,37 +1170,38 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[10]) {
-                                textView11.setText((setTime+stationTimeArr[10])+"");
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView7.setText((setTime+stationTimeArr[6])+"");
-                                textView8.setText((setTime+stationTimeArr[7])+"");
-                                textView9.setText((setTime+stationTimeArr[8])+"");
-                                textView10.setText((setTime+stationTimeArr[9])+"");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[10])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[10])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[10])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[10])+"");
+                                innerText11 = (setTime+stationTimeArr[10])+"분 후 도착";
+
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                                innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
+                                innerText8 = (setTime+stationTimeArr[7])+"분 후 도착";
+                                innerText9 = (setTime+stationTimeArr[8])+"분 후 도착";
+                                innerText10 = (setTime+stationTimeArr[9])+"분 후 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[10])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[10])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[10])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[10])+"분 후 도착";
                             } else {
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView7.setText((setTime+stationTimeArr[6])+"");
-                                textView8.setText((setTime+stationTimeArr[7])+"");
-                                textView9.setText((setTime+stationTimeArr[8])+"");
-                                textView10.setText((setTime+stationTimeArr[9])+"");
-                                textView11.setText("곧 도착");
-                                textView12.setText((stationTimeArr[11]-stationTimeArr[10])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[10])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[10])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[10])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                                innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
+                                innerText8 = (setTime+stationTimeArr[7])+"분 후 도착";
+                                innerText9 = (setTime+stationTimeArr[8])+"분 후 도착";
+                                innerText10 = (setTime+stationTimeArr[9])+"분 후 도착";
+                                innerText11 = "곧 도착";
+                                innerText12 = (stationTimeArr[11]-stationTimeArr[10])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[10])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[10])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[10])+"분 후 도착";
                             }
                         }
                         else if (visited[11]) {
@@ -1205,38 +1228,38 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[11]) {
-                                textView12.setText((setTime+stationTimeArr[11])+"");
+                                innerText12 = (setTime+stationTimeArr[11])+"분 후 도착";
 
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView7.setText((setTime+stationTimeArr[6])+"");
-                                textView8.setText((setTime+stationTimeArr[7])+"");
-                                textView9.setText((setTime+stationTimeArr[8])+"");
-                                textView10.setText((setTime+stationTimeArr[9])+"");
-                                textView11.setText((setTime+stationTimeArr[10])+"");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[11])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[11])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[11])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                                innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
+                                innerText8 = (setTime+stationTimeArr[7])+"분 후 도착";
+                                innerText9 = (setTime+stationTimeArr[8])+"분 후 도착";
+                                innerText10 = (setTime+stationTimeArr[9])+"분 후 도착";
+                                innerText11 = (setTime+stationTimeArr[10])+"분 후 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[11])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[11])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[11])+"분 후 도착";
                             } else {
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView7.setText((setTime+stationTimeArr[6])+"");
-                                textView8.setText((setTime+stationTimeArr[7])+"");
-                                textView9.setText((setTime+stationTimeArr[8])+"");
-                                textView10.setText((setTime+stationTimeArr[9])+"");
-                                textView11.setText((setTime+stationTimeArr[10])+"");
-                                textView12.setText("곧 도착");
-                                textView13.setText((stationTimeArr[12]-stationTimeArr[11])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[11])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[11])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                                innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
+                                innerText8 = (setTime+stationTimeArr[7])+"분 후 도착";
+                                innerText9 = (setTime+stationTimeArr[8])+"분 후 도착";
+                                innerText10 = (setTime+stationTimeArr[9])+"분 후 도착";
+                                innerText11 = (setTime+stationTimeArr[10])+"분 후 도착";
+                                innerText12 = "곧 도착";
+                                innerText13 = (stationTimeArr[12]-stationTimeArr[11])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[11])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[11])+"분 후 도착";
                             }
                         }
                         else if (visited[12]) {
@@ -1263,38 +1286,39 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[12]) {
-                                textView13.setText((setTime+stationTimeArr[12])+"");
+                                innerText13 = (setTime+stationTimeArr[12])+"분 후 도착";
 
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView7.setText((setTime+stationTimeArr[6])+"");
-                                textView8.setText((setTime+stationTimeArr[7])+"");
-                                textView9.setText((setTime+stationTimeArr[8])+"");
-                                textView10.setText((setTime+stationTimeArr[9])+"");
-                                textView11.setText((setTime+stationTimeArr[10])+"");
-                                textView12.setText((setTime+stationTimeArr[11])+"");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[12])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[12])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                                innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
+                                innerText8 = (setTime+stationTimeArr[7])+"분 후 도착";
+                                innerText9 = (setTime+stationTimeArr[8])+"분 후 도착";
+                                innerText10 = (setTime+stationTimeArr[9])+"분 후 도착";
+                                innerText11 = (setTime+stationTimeArr[10])+"분 후 도착";
+                                innerText12 = (setTime+stationTimeArr[11])+"분 후 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[12])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[12])+"분 후 도착";
                             } else {
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView7.setText((setTime+stationTimeArr[6])+"");
-                                textView8.setText((setTime+stationTimeArr[7])+"");
-                                textView9.setText((setTime+stationTimeArr[8])+"");
-                                textView10.setText((setTime+stationTimeArr[9])+"");
-                                textView11.setText((setTime+stationTimeArr[10])+"");
-                                textView12.setText((setTime+stationTimeArr[11])+"");
-                                textView13.setText("곧 도착");
-                                textView14.setText((stationTimeArr[13]-stationTimeArr[12])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[12])+"");
+
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                                innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
+                                innerText8 = (setTime+stationTimeArr[7])+"분 후 도착";
+                                innerText9 = (setTime+stationTimeArr[8])+"분 후 도착";
+                                innerText10 = (setTime+stationTimeArr[9])+"분 후 도착";
+                                innerText11 = (setTime+stationTimeArr[10])+"분 후 도착";
+                                innerText12 = (setTime+stationTimeArr[11])+"분 후 도착";
+                                innerText13 = "곧 도착";
+                                innerText14 = (stationTimeArr[13]-stationTimeArr[12])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[12])+"분 후 도착";
                             }
                         }
                         else if (visited[13]) {
@@ -1321,38 +1345,38 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[13]) {
-                                textView14.setText((setTime+stationTimeArr[13])+"");
+                                innerText14 = (setTime+stationTimeArr[13])+"분 후 도착";
 
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView7.setText((setTime+stationTimeArr[6])+"");
-                                textView8.setText((setTime+stationTimeArr[7])+"");
-                                textView9.setText((setTime+stationTimeArr[8])+"");
-                                textView10.setText((setTime+stationTimeArr[9])+"");
-                                textView11.setText((setTime+stationTimeArr[10])+"");
-                                textView12.setText((setTime+stationTimeArr[11])+"");
-                                textView13.setText((setTime+stationTimeArr[12])+"");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[13])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                                innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
+                                innerText8 = (setTime+stationTimeArr[7])+"분 후 도착";
+                                innerText9 = (setTime+stationTimeArr[8])+"분 후 도착";
+                                innerText10 = (setTime+stationTimeArr[9])+"분 후 도착";
+                                innerText11 = (setTime+stationTimeArr[10])+"분 후 도착";
+                                innerText12 = (setTime+stationTimeArr[11])+"분 후 도착";
+                                innerText13 = (setTime+stationTimeArr[12])+"분 후 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[13])+"분 후 도착";
                             } else {
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView7.setText((setTime+stationTimeArr[6])+"");
-                                textView8.setText((setTime+stationTimeArr[7])+"");
-                                textView9.setText((setTime+stationTimeArr[8])+"");
-                                textView10.setText((setTime+stationTimeArr[9])+"");
-                                textView11.setText((setTime+stationTimeArr[10])+"");
-                                textView12.setText((setTime+stationTimeArr[11])+"");
-                                textView13.setText((setTime+stationTimeArr[12])+"");
-                                textView14.setText("곧 도착");
-                                textView15.setText((stationTimeArr[14]-stationTimeArr[13])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                                innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
+                                innerText8 = (setTime+stationTimeArr[7])+"분 후 도착";
+                                innerText9 = (setTime+stationTimeArr[8])+"분 후 도착";
+                                innerText10 = (setTime+stationTimeArr[9])+"분 후 도착";
+                                innerText11 = (setTime+stationTimeArr[10])+"분 후 도착";
+                                innerText12 = (setTime+stationTimeArr[11])+"분 후 도착";
+                                innerText13 = (setTime+stationTimeArr[12])+"분 후 도착";
+                                innerText14 = "곧 도착";
+                                innerText15 = (stationTimeArr[14]-stationTimeArr[13])+"분 후 도착";
                             }
                         }
                         else if (visited[14]) {
@@ -1379,38 +1403,38 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[14]) {
-                                textView15.setText((setTime+stationTimeArr[14])+"");
+                                innerText15 = (setTime+stationTimeArr[14])+"분 후 도착";
 
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView7.setText((setTime+stationTimeArr[6])+"");
-                                textView8.setText((setTime+stationTimeArr[7])+"");
-                                textView9.setText((setTime+stationTimeArr[8])+"");
-                                textView10.setText((setTime+stationTimeArr[9])+"");
-                                textView11.setText((setTime+stationTimeArr[10])+"");
-                                textView12.setText((setTime+stationTimeArr[11])+"");
-                                textView13.setText((setTime+stationTimeArr[12])+"");
-                                textView14.setText((setTime+stationTimeArr[13])+"");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                                innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
+                                innerText8 = (setTime+stationTimeArr[7])+"분 후 도착";
+                                innerText9 = (setTime+stationTimeArr[8])+"분 후 도착";
+                                innerText10 = (setTime+stationTimeArr[9])+"분 후 도착";
+                                innerText11 = (setTime+stationTimeArr[10])+"분 후 도착";
+                                innerText12 = (setTime+stationTimeArr[11])+"분 후 도착";
+                                innerText13 = (setTime+stationTimeArr[12])+"분 후 도착";
+                                innerText14 = (setTime+stationTimeArr[13])+"분 후 도착";
                             } else {
-                                textView1.setText(setTime+"");
-                                textView2.setText((setTime+stationTimeArr[1])+"");
-                                textView3.setText((setTime+stationTimeArr[2])+"");
-                                textView4.setText((setTime+stationTimeArr[3])+"");
-                                textView5.setText((setTime+stationTimeArr[4])+"");
-                                textView6.setText((setTime+stationTimeArr[5])+"");
-                                textView7.setText((setTime+stationTimeArr[6])+"");
-                                textView8.setText((setTime+stationTimeArr[7])+"");
-                                textView9.setText((setTime+stationTimeArr[8])+"");
-                                textView10.setText((setTime+stationTimeArr[9])+"");
-                                textView11.setText((setTime+stationTimeArr[10])+"");
-                                textView12.setText((setTime+stationTimeArr[11])+"");
-                                textView13.setText((setTime+stationTimeArr[12])+"");
-                                textView14.setText((setTime+stationTimeArr[13])+"");
-                                textView15.setText("곧 도착");
+                                innerText1 = setTime+"분 후 도착";
+                                innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                                innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                                innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                                innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                                innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                                innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
+                                innerText8 = (setTime+stationTimeArr[7])+"분 후 도착";
+                                innerText9 = (setTime+stationTimeArr[8])+"분 후 도착";
+                                innerText10 = (setTime+stationTimeArr[9])+"분 후 도착";
+                                innerText11 = (setTime+stationTimeArr[10])+"분 후 도착";
+                                innerText12 = (setTime+stationTimeArr[11])+"분 후 도착";
+                                innerText13 = (setTime+stationTimeArr[12])+"분 후 도착";
+                                innerText14 = (setTime+stationTimeArr[13])+"분 후 도착";
+                                innerText15 = "곧 도착";
                             }
                         }
                         else {
@@ -1436,21 +1460,21 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                                 }
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
-                            textView1.setText(setTime+"");
-                            textView2.setText((setTime+stationTimeArr[1])+"");
-                            textView3.setText((setTime+stationTimeArr[2])+"");
-                            textView4.setText((setTime+stationTimeArr[3])+"");
-                            textView5.setText((setTime+stationTimeArr[4])+"");
-                            textView6.setText((setTime+stationTimeArr[5])+"");
-                            textView7.setText((setTime+stationTimeArr[6])+"");
-                            textView8.setText((setTime+stationTimeArr[7])+"");
-                            textView9.setText((setTime+stationTimeArr[8])+"");
-                            textView10.setText((setTime+stationTimeArr[9])+"");
-                            textView11.setText((setTime+stationTimeArr[10])+"");
-                            textView12.setText((setTime+stationTimeArr[11])+"");
-                            textView13.setText((setTime+stationTimeArr[12])+"");
-                            textView14.setText((setTime+stationTimeArr[13])+"");
-                            textView15.setText((setTime+stationTimeArr[14])+"");
+                            innerText1 = setTime+"분 후 도착";
+                            innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
+                            innerText3 = (setTime+stationTimeArr[2])+"분 후 도착";
+                            innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
+                            innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
+                            innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
+                            innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
+                            innerText8 = (setTime+stationTimeArr[7])+"분 후 도착";
+                            innerText9 = (setTime+stationTimeArr[8])+"분 후 도착";
+                            innerText10 = (setTime+stationTimeArr[9])+"분 후 도착";
+                            innerText11 = (setTime+stationTimeArr[10])+"분 후 도착";
+                            innerText12 = (setTime+stationTimeArr[11])+"분 후 도착";
+                            innerText13 = (setTime+stationTimeArr[12])+"분 후 도착";
+                            innerText14 = (setTime+stationTimeArr[13])+"분 후 도착";
+                            innerText15 = (setTime+stationTimeArr[14])+"분 후 도착";
                         }
                     }
                 }
@@ -1810,11 +1834,57 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
             builder.setTitle("A노선 운행 버스");
             builder.setMessage("this is the test");
 
-        } else {
+        } else if(marker.equals(marker1)) {
             builder.setTitle(marker.getTitle());
-            builder.setMessage("A노선 운행버스 노선"+"\n"+"버스 도착까지 남은 시간 : "+marker.getSnippet());
-
+            builder.setMessage("A-1 버스 : " + innerText1);
+        } else if(marker.equals(marker2)) {
+            builder.setTitle(marker.getTitle());
+            builder.setMessage("A-1 버스 : " + innerText2);
+        } else if(marker.equals(marker3)) {
+            builder.setTitle(marker.getTitle());
+            builder.setMessage("A-1 버스 : " + innerText3);
+        } else if(marker.equals(marker4)) {
+            builder.setTitle(marker.getTitle());
+            builder.setMessage("A-1 버스 : " + innerText4);
+        } else if(marker.equals(marker5)) {
+            builder.setTitle(marker.getTitle());
+            builder.setMessage("A-1 버스 : " + innerText5);
+        } else if(marker.equals(marker6)) {
+            builder.setTitle(marker.getTitle());
+            builder.setMessage("A-1 버스 : " + innerText6);
+        } else if(marker.equals(marker7)) {
+            builder.setTitle(marker.getTitle());
+            builder.setMessage("A-1 버스 : " + innerText7);
+        } else if(marker.equals(marker8)) {
+            builder.setTitle(marker.getTitle());
+            builder.setMessage("A-1 버스 : " + innerText8);
+        } else if(marker.equals(marker9)) {
+            builder.setTitle(marker.getTitle());
+            builder.setMessage("A-1 버스 : " + innerText9);
+        } else if(marker.equals(marker10)) {
+            builder.setTitle(marker.getTitle());
+            builder.setMessage("A-1 버스 : " + innerText10);
+        } else if(marker.equals(marker11)) {
+            builder.setTitle(marker.getTitle());
+            builder.setMessage("A-1 버스 : " + innerText11);
+        } else if(marker.equals(marker12)) {
+            builder.setTitle(marker.getTitle());
+            builder.setMessage("A-1 버스 : " + innerText12);
+        } else if(marker.equals(marker13)) {
+            builder.setTitle(marker.getTitle());
+            builder.setMessage("A-1 버스 : " + innerText13);
+        } else if(marker.equals(marker14)) {
+            builder.setTitle(marker.getTitle());
+            builder.setMessage("A-1 버스 : " + innerText14);
+        } else if(marker.equals(marker15)) {
+            builder.setTitle(marker.getTitle());
+            builder.setMessage("A-1 버스 : " + innerText15);
         }
+//        else {
+//            builder.setTitle(marker.getTitle());
+//            builder.setMessage("A노선 운행버스 노선"+"\n"+"버스 도착까지 남은 시간 : ");
+//
+//        }
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
             }
