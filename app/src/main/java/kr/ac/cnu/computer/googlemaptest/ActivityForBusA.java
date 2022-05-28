@@ -565,7 +565,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                         textView.setText("버스의 위치 정보를 불러올 수 없습니다.");
                     } else {
                         if (visited[0]) {
-                            textView.setText("정심화국제문화회관 -> 경상대학");
+                            textView.setText("①정심화국제문화회관→②경상대학앞");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -609,7 +609,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
 
                         }
                         else if (visited[1]) {
-                            textView.setText("경상대학 -> 도서관");
+                            textView.setText("②경상대학앞→③도서관 앞(농대방향)");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -668,7 +668,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[2]) {
-                            textView.setText("도서관 -> 학생생활관");
+                            textView.setText("③도서관 앞(농대방향)→④학생생활관3거리");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -726,7 +726,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[3]) {
-                            textView.setText("학생생활관 -> 농대");
+                            textView.setText("④학생생활관3거리→⑤농업생명과학대학 앞");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -784,7 +784,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[4]) {
-                            textView.setText("농대 -> 동문");
+                            textView.setText("⑤농업생명과학대학 앞→⑥동문주차장");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -842,7 +842,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[5]) {
-                            textView.setText("동문 -> 농대");
+                            textView.setText("⑥동문주차장→⑦농업생명과학대학 앞");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -900,7 +900,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[6]) {
-                            textView.setText("농대 -> 도서관");
+                            textView.setText("⑦농업생명과학대학 앞→⑧도서관앞(도서관 삼거리 방향)");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -958,7 +958,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[7]) {
-                            textView.setText("도서관 -> 예술대");
+                            textView.setText("⑧도서관앞(도서관 삼거리 방향)→⑨예술대학앞");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -1016,7 +1016,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[8]) {
-                            textView.setText("예술대 -> 음악2");
+                            textView.setText("⑨예술대학앞→⑩음악2호관앞");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -1075,7 +1075,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[9]) {
-                            textView.setText("음악2 -> 공동동물실습");
+                            textView.setText("⑩음악2호관앞→⑪공동동물실험센터 입구(회차)");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -1133,7 +1133,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[10]) {
-                            textView.setText("공동동물실습 -> 체육관");
+                            textView.setText("⑪공동동물실험센터 입구(회차)→⑫체육관 입구");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -1191,7 +1191,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[11]) {
-                            textView.setText("체육관 -> 서문");
+                            textView.setText("⑫체육관 입구→⑬서문(공동실험실습관앞)");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -1249,7 +1249,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[12]) {
-                            textView.setText("서문 -> 사과대");
+                            textView.setText("⑬서문(공동실험실습관앞)→⑭사회과학대학 입구(한누리회관뒤)");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -1308,7 +1308,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[13]) {
-                            textView.setText("사과대 -> 산학연");
+                            textView.setText("⑭사회과학대학 입구(한누리회관뒤)→⑮산학연교육연구관앞");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -1366,7 +1366,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[14]) {
-                            textView.setText("산학연 -> 정심화국제문화회관");
+                            textView.setText("⑮산학연교육연구관앞→⑯정심화국제문화회관");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
