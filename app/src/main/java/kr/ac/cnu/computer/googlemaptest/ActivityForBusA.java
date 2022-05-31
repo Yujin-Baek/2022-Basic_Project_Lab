@@ -609,7 +609,6 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
 
                         }
                         else if (visited[1]) {
-                            textView.setText("②경상대학앞→③도서관 앞(농대방향)");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -632,6 +631,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[1]) {
+                                textView.setText("②경상대학앞→③도서관 앞(농대방향)");
                                 innerText2 = (setTime+stationTimeArr[1])+"분 후 도착";
 
                                 innerText1 = setTime+"분 후 도착";
@@ -668,7 +668,6 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[2]) {
-                            textView.setText("③도서관 앞(농대방향)→④학생생활관3거리");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -691,6 +690,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[2]) {
+                                textView.setText("③도서관 앞(농대방향)→④학생생활관3거리");
                                 innerText3 = setTime+stationTimeArr[2]+"분 후 도착";
 
                                 innerText1 = setTime+"분 후 도착";
@@ -726,7 +726,6 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[3]) {
-                            textView.setText("④학생생활관3거리→⑤농업생명과학대학 앞");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -749,6 +748,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[3]) {
+                                textView.setText("④학생생활관3거리→⑤농업생명과학대학 앞");
                                 innerText4 = (setTime+stationTimeArr[3])+"분 후 도착";
 
                                 innerText1 = setTime+"분 후 도착";
@@ -784,7 +784,6 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[4]) {
-                            textView.setText("⑤농업생명과학대학 앞→⑥동문주차장");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -807,6 +806,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[4]) {
+                                textView.setText("⑤농업생명과학대학 앞→⑥동문주차장");
                                 innerText5 = (setTime+stationTimeArr[4])+"분 후 도착";
 
                                 innerText1 = setTime+"분 후 도착";
@@ -842,7 +842,6 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[5]) {
-                            textView.setText("⑥동문주차장→⑦농업생명과학대학 앞");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -865,6 +864,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[5]) {
+                                textView.setText("⑥동문주차장→⑦농업생명과학대학 앞");
                                 innerText6 = (setTime+stationTimeArr[5])+"분 후 도착";
 
                                 innerText1 = setTime+"분 후 도착";
@@ -900,7 +900,6 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[6]) {
-                            textView.setText("⑦농업생명과학대학 앞→⑧도서관앞(도서관 삼거리 방향)");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -923,6 +922,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[6]) {
+                                textView.setText("⑦농업생명과학대학 앞→⑧도서관앞(도서관 삼거리 방향)");
                                 innerText7 = (setTime+stationTimeArr[6])+"분 후 도착";
 
                                 innerText1 = setTime+"분 후 도착";
@@ -958,7 +958,6 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[7]) {
-                            textView.setText("⑧도서관앞(도서관 삼거리 방향)→⑨예술대학앞");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -981,6 +980,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[7]) {
+                                textView.setText("⑧도서관앞(도서관 삼거리 방향)→⑨예술대학앞");
                                 innerText8 = (setTime+stationTimeArr[7])+"분 후 도착";
 
                                 innerText1 = setTime+"분 후 도착";
@@ -1016,7 +1016,6 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[8]) {
-                            textView.setText("⑨예술대학앞→⑩음악2호관앞");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -1039,6 +1038,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[8]) {
+                                textView.setText("⑨예술대학앞→⑩음악2호관앞");
                                 innerText9 = (setTime+stationTimeArr[8])+"분 후 도착";
 
                                 innerText1 = setTime+"분 후 도착";
@@ -1075,7 +1075,6 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[9]) {
-                            textView.setText("⑩음악2호관앞→⑪공동동물실험센터 입구(회차)");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -1098,6 +1097,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[9]) {
+                                textView.setText("⑩음악2호관앞→⑪공동동물실험센터 입구(회차)");
                                 innerText10 = (setTime+stationTimeArr[9])+"분 후 도착";
 
                                 innerText1 = setTime+"분 후 도착";
@@ -1133,7 +1133,6 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[10]) {
-                            textView.setText("⑪공동동물실험센터 입구(회차)→⑫체육관 입구");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -1156,6 +1155,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[10]) {
+                                textView.setText("⑪공동동물실험센터 입구(회차)→⑫체육관 입구");
                                 innerText11 = (setTime+stationTimeArr[10])+"분 후 도착";
 
                                 innerText1 = setTime+"분 후 도착";
@@ -1191,7 +1191,6 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[11]) {
-                            textView.setText("⑫체육관 입구→⑬서문(공동실험실습관앞)");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -1214,6 +1213,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[11]) {
+                                textView.setText("⑫체육관 입구→⑬서문(공동실험실습관앞)");
                                 innerText12 = (setTime+stationTimeArr[11])+"분 후 도착";
 
                                 innerText1 = setTime+"분 후 도착";
@@ -1249,7 +1249,6 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[12]) {
-                            textView.setText("⑬서문(공동실험실습관앞)→⑭사회과학대학 입구(한누리회관뒤)");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -1272,6 +1271,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[12]) {
+                                textView.setText("⑬서문(공동실험실습관앞)→⑭사회과학대학 입구(한누리회관뒤)");
                                 innerText13 = (setTime+stationTimeArr[12])+"분 후 도착";
 
                                 innerText1 = setTime+"분 후 도착";
@@ -1308,7 +1308,6 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[13]) {
-                            textView.setText("⑭사회과학대학 입구(한누리회관뒤)→⑮산학연교육연구관앞");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -1331,6 +1330,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[13]) {
+                                textView.setText("⑭사회과학대학 입구(한누리회관뒤)→⑮산학연교육연구관앞");
                                 innerText14 = (setTime+stationTimeArr[13])+"분 후 도착";
 
                                 innerText1 = setTime+"분 후 도착";
@@ -1366,7 +1366,6 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
                         else if (visited[14]) {
-                            textView.setText("⑮산학연교육연구관앞→⑯정심화국제문화회관");
                             long min = 1000;
                             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                             for (int i=0; i<startTimeArr.length; i++) {
@@ -1389,6 +1388,7 @@ public class ActivityForBusA extends AppCompatActivity implements OnMapReadyCall
                             }
                             long setTime = min; //setTime은 다음 출발시간까지 남은 시간
                             if(visited2[14]) {
+                                textView.setText("⑮산학연교육연구관앞→⑯정심화국제문화회관");
                                 innerText15 = (setTime+stationTimeArr[14])+"분 후 도착";
 
                                 innerText1 = setTime+"분 후 도착";
